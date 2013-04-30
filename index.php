@@ -4,8 +4,11 @@
 
 # Generate Taskpaper Month
 
+Generator: http://taskpaper-month-generator.herokuapp.com
+Source:    https://github.com/matthewmcvickar/taskpaper-month-generator
+
 Part of the Taskpaper Tiles system by Matthew McVickar
-https://github.com/matthewmcvickar/taskpaper-month-generator
+https://github.com/matthewmcvickar/taskpapertiles
 
 Creates a month list for the requested month and year (or the current month and year, if unspecified) in TaskPaper, populating days with items as specified in the plaintext hierarchy below.
 
@@ -24,7 +27,7 @@ if ($_REQUEST['items_text'])
 if ($_COOKIE['items'])
   $items_plaintext = $_COOKIE['items'];
 else
-  $items_plaintext = "1\nfoo bar baz\n\n14\nlorem ipsum\n\n30\ndolor sit\namet\nadispicium";
+  $items_plaintext = "1\nto-do item\n\n14\nappointment reminder\n  details of appointment\n\n29\ntask\nanother task\n  a note for this task\n  another note";
 
 // Create a flat array from the plain text in the cookie above by splitting it by newlines that contain a number.
 $items_array = preg_split('~\n([0-9]+)~', "\n" . $items_plaintext, NULL, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
