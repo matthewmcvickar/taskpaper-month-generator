@@ -110,18 +110,38 @@ date_default_timezone_set('UTC');
 
     h1
     {
-      border-bottom: 4px solid #ccc;
       line-height: 1;
-      margin: 0 0 .5em;
-      padding-bottom: .5em;
+      margin: 0 0 .25em;
+    }
+
+    ol
+    {
+      margin: 0 0 0 1.25em;
+      padding: 0;
+    }
+
+    p,
+    li
+    {
+      clear: both;
+      font-size: 13px;
+      line-height: 1.8;
+      float: none;
+    }
+
+    hr
+    {
+      border: 0;
+      border-top: 4px solid #ccc;
+      clear: both;
+      height: 0;
+      margin: 1.25em 0 1.5em;
     }
 
     .credit
     {
       color: #666;
-      font-size: 12px;
-      line-height: 1.8;
-      margin-top: 1em;
+      margin-top: 2em;
     }
 
     .credit a:link,
@@ -140,6 +160,14 @@ date_default_timezone_set('UTC');
   <body>
     <form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" method="post">
       <h1>TaskPaper Month Generator</h1>
+
+      <ol>
+        <li>Type your to-dos and notes in the textbox below, one per line under the day it should appear.</li>
+        <li>Hit the &lsquo;Update&rsquo; button.</li>
+        <li>Copy the generated text in the right pane and paste it into TaskPaper.</li>
+      </ol>
+
+      <hr>
 
       <select name="month">
         <?php
