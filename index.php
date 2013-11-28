@@ -1,5 +1,10 @@
 <?php
 
+var_dump( $_POST );
+
+// echo "<pre>"; print_r($_REQUEST); echo "</pre>";
+// echo "<pre>"; print_r($_COOKIE); echo "</pre>";
+
 /*
 
 # Generate Taskpaper Month
@@ -15,9 +20,9 @@ Creates a month list for the requested month and year (or the current month and 
 */
 
 // If a new 'items' value was set, update the cookie. Expiration is one year, and should always be enough, since this will be set by this script running at least once a month.
-if ($_REQUEST['items_text'])
+if ($_REQUEST['items-text'])
 {
-  setcookie('items', $_REQUEST['items_text'], time() + 315569260);
+  setcookie('items', $_REQUEST['items-text'], time() + 315569260);
 
   // Reload the page, since we just set a cookie.
   header('Location: ' . $_SERVER['SCRIPT_NAME']);
@@ -157,11 +162,11 @@ date_default_timezone_set('UTC');
     </style>
   </head>
   <body>
-    <form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" method="post">
+    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
       <h1>TaskPaper Month Generator</h1>
 
       <ol>
-        <li>Type your to-dos and notes in the textbox below, one per line under the day it should appear.</li>
+        <li>Type your to-dos and notes in the textbox below, one per line under its day.</li>
         <li>Hit the &lsquo;Update&rsquo; button.</li>
         <li>Copy the generated text in the right pane and paste it into TaskPaper.</li>
       </ol>
@@ -205,7 +210,7 @@ date_default_timezone_set('UTC');
 
       <input tabindex="2" type="submit" value="Update">
 
-      <textarea tabindex="1" name="items_text"><?php print($items_plaintext); ?></textarea>
+      <textarea tabindex="1" name="items-text"><?php print($items_plaintext); ?></textarea>
 
       <p class="credit">
         Use simple syntax to generator a copy-and-pasteable month of tasks into TaskPaper. <a href="https://github.com/matthewmcvickar/taskpaper-month-generator">Source on GitHub.</a><br>
