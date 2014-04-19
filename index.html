@@ -1,0 +1,84 @@
+<!doctype html>
+
+<!--
+
+# Taskpaper Month Generator
+
+Generator: http://taskpaper-month-generator.herokuapp.com
+Source:    https://github.com/matthewmcvickar/taskpaper-month-generator
+
+Part of the Taskpaper Tiles system by Matthew McVickar
+https://github.com/matthewmcvickar/taskpapertiles
+
+Creates a month list for the requested month and year (or the current month and year, if unspecified) in TaskPaper, populating days with items as specified in the plaintext hierarchy below.
+
+-->
+
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TaskPaper Month Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <form action="./" method="post">
+      <h1>TaskPaper Month Generator</h1>
+
+      <ol>
+        <li>Choose the month you want to generate.</li>
+        <li>Type your to-dos and notes in the textbox below, one per line under its day.</li>
+        <li>Hit the &lsquo;Update&rsquo; button.</li>
+        <li>Copy the generated text in the right pane and paste it into TaskPaper.</li>
+      </ol>
+
+      <hr>
+
+      <select name="month" class="month-select">
+        <option value="01">January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+
+      <select name="year" class="year-select">
+        <!-- Print the current and next year. -->
+      </select>
+
+      <input tabindex="2" type="submit" value="Update">
+
+      <textarea tabindex="1" name="items-text"></textarea>
+
+      <p class="credit">
+        Use simple syntax to generator a copy-and-pasteable month of tasks into TaskPaper. <a href="https://github.com/matthewmcvickar/taskpaper-month-generator">Source on GitHub.</a><br>
+        For use with <a href="https://github.com/matthewmcvickar/taskpapertiles">TaskPaper Tiles</a>, a TaskPaper-based productivity framework.<br>
+        TaskPaper Month Generator and TaskPaper Tiles by <a href="http://matthewmcvickar.com">Matthew McVickar</a>.<br>
+        <a href="http://www.hogbaysoftware.com/products/taskpaper">TaskPaper</a> by <a href="https://twitter.com/jessegrosjean">Jesse Grosjean</a>.
+      </p>
+    </form>
+
+    <textarea class="taskpaper_month" readonly onclick="this.select();"></textarea>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.0.min.js"><\/script>')</script>
+    <script src="js/main.js"></script>
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-2466767-6', 'matthewmcvickar.github.io');
+    ga('send', 'pageview');
+    </script>
+  </body>
+</html>

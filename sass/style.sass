@@ -1,0 +1,97 @@
+/* Theme Name: The Nightlight
+ * Author: Matthew McVickar for Joel Johnson
+ * Author URI: http://matthewmcvickar.com
+ * Version: 1.0
+ */
+
+// Includes
+@import "compass"
+@import "compass/reset"
+
+// Styles
+*
+  position: relative
+  @include box-sizing(border-box)
+
+::selection
+  background: gray
+  color: white
+
+html,
+body
+  height: 100%
+  width: 100%
+  margin: 0
+  padding: 0
+  overflow: hidden
+
+body
+  font-family: Helvetica, sans-serif
+  font-size: 16px
+  min-height: 100%
+
+form
+  float: left
+  background: #eee
+  width: 48%
+  padding: 1%
+  height: 98%
+
+  textarea
+    font-family: Helvetica, sans-serif
+    font-size: 16px
+    height: 50%
+    width: 97.5%
+    padding: 1%
+    resize: vertical
+
+  select,
+  input
+    float: left
+    font-size: 16px
+    margin: 0 1em 1em 0
+
+textarea.taskpaper_month
+  background: #f4f4f4
+  float: left
+  height: 98%
+  width: 47.75%
+  border: 0
+  font-family: Helvetica, sans-serif
+  font-size: 16px
+  line-height: 1.3
+  padding: 1% 1% 1% 1.25%
+  resize: none
+
+h1
+  line-height: 1
+  margin: 0 0 .25em
+
+ol
+  list-style-type: decimal
+  margin: 0 0 0 1.25em
+  padding: 0
+
+p,
+li
+  clear: both
+  font-size: 13px
+  line-height: 1.8
+  float: none
+
+hr
+  border: 0
+  border-top: 4px solid #ccc
+  clear: both
+  height: 0
+  margin: 1.25em 0 1.5em
+
+.credit
+  color: #666
+  margin-top: 2em
+
+  a
+    color: #888
+
+  a:hover
+    color: #333
