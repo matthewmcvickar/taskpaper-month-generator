@@ -8,7 +8,7 @@ $(function() {
 
   $.each(years, function(key, value) {
     year_select.append(
-      $('<option></option>').attr('value', key).text(value)
+      $('<option></option>').attr('value', value).text(value)
     );
   });
 
