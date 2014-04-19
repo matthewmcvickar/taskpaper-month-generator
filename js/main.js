@@ -1,13 +1,13 @@
 $(function() {
 
   // Populate year <select> with current and next year.
-  var year_select  = $('.year-select'),
-      current_year = new Date().getFullYear(),
-      next_year    = current_year++,
-      years        = [next_year, current_year];
+  var yearSelect  = $('.year-select'),
+      currentYear = new Date().getFullYear(),
+      nextYear    = currentYear + 1,
+      years       = [currentYear, nextYear];
 
   $.each(years, function(key, value) {
-    year_select.append(
+    yearSelect.append(
       $('<option></option>').attr('value', value).text(value)
     );
   });
