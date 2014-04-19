@@ -1,6 +1,6 @@
 <?php
 
-var_dump( $_POST );
+// var_dump( $_POST );
 
 // echo "<pre>"; print_r($_REQUEST); echo "</pre>";
 // echo "<pre>"; print_r($_COOKIE); echo "</pre>";
