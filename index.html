@@ -27,10 +27,9 @@ Creates a month list for the requested month and year (or the current month and 
       <h1>TaskPaper Month Generator</h1>
 
       <ol>
-        <li>Choose the month you want to generate.</li>
+        <li>Choose the month and year you want to generate.</li>
         <li>Type your to-dos and notes in the textbox below, one per line under its day.</li>
-        <li>Hit the &lsquo;Update&rsquo; button.</li>
-        <li>Copy the generated text in the right pane and paste it into TaskPaper.</li>
+        <li>Copy the generated text and paste into TaskPaper.</li>
       </ol>
 
       <hr>
@@ -53,8 +52,6 @@ Creates a month list for the requested month and year (or the current month and 
       <select name="year" class="year-select">
         <!-- Print the current and next year. -->
       </select>
-
-      <input tabindex="2" type="submit" value="Update">
 
       <textarea tabindex="1" name="items-text"></textarea>
 
@@ -80,5 +77,7 @@ Creates a month list for the requested month and year (or the current month and 
     ga('create', 'UA-2466767-6', 'matthewmcvickar.github.io');
     ga('send', 'pageview');
     </script>
+
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </body>
 </html>
