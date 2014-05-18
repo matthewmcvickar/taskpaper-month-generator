@@ -34,7 +34,7 @@ Creates a month list for the requested month and year (or the current month and 
 
       <hr>
 
-      <select name="month" class="month-select">
+      <select id="month">
         <option value="01">January</option>
         <option value="02">February</option>
         <option value="03">March</option>
@@ -49,11 +49,11 @@ Creates a month list for the requested month and year (or the current month and 
         <option value="12">December</option>
       </select>
 
-      <select name="year" class="year-select">
+      <select id="year">
         <!-- Print the current and next year. -->
       </select>
 
-      <textarea tabindex="1" name="items-text"></textarea>
+      <textarea tabindex="1" id="items"></textarea>
 
       <p class="credit">
         Use simple syntax to generator a copy-and-pasteable month of tasks into TaskPaper. <a href="https://github.com/matthewmcvickar/taskpaper-month-generator">Source on GitHub.</a><br>
@@ -63,7 +63,7 @@ Creates a month list for the requested month and year (or the current month and 
       </p>
     </form>
 
-    <textarea class="taskpaper_month" readonly onclick="this.select();"></textarea>
+    <textarea id="taskpaper-month" readonly onclick="this.select();"></textarea>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.0.min.js"><\/script>')</script>
