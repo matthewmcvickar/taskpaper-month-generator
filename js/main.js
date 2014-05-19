@@ -99,7 +99,7 @@ var populateAndProcessAndRememberFormData = function (data){
 
           // If the line starts with a dash and a space, make it a todo.
           // (This is not the suggested syntax, but that's OK!)
-          if (value.substring(0, 2) === '- ')
+          else if (value.substring(0, 2) === '- ')
             generatedMonth += '\n\t' + value
 
           // Otherwise, make it a todo.
