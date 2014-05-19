@@ -116,7 +116,7 @@ var populateAndProcessAndRememberFormData = function (data){
     }
 
     // Print generated TaskPaper month to the screen.
-    taskpaperMonth.html(generatedMonth);
+    taskpaperMonth.val(generatedMonth);
 
     // Save values to localStorage.
     localStorage.setItem('year',  yearField.val()  );
@@ -149,7 +149,7 @@ var populateAndProcessAndRememberFormData = function (data){
 
   // 4. Populate items field with loaded items.
   // 5. Give items field focus.
-  itemsField.html(data.items).focus();
+  itemsField.val(data.items).focus();
 
   // 6. Generate TaskPaper month for the first time.
   generateTaskPaperMonth();
@@ -168,10 +168,7 @@ var populateAndProcessAndRememberFormData = function (data){
       key.preventDefault();
 
       // Rebuild the textarea:
-      // 1. Insert its own value up to the cursor position.
-      // 2. Insert two spaces (instead of a tab).
-      // 3. Insert its own value after the cursor position.
-      itemsField.html(itemsFieldValue.substring(0, cursorPosition) + '  ' + itemsFieldValue.substring(cursorPosition));
+      itemsField.val(spliceText(itemsFieldValue, cursorPosition, 0, '  '));
 
       // Move the cursor position two characters ahead
       // (after the two inserted spaces).
@@ -190,3 +187,9 @@ var populateAndProcessAndRememberFormData = function (data){
 documentReady
   .then(loadFromCookiesOrDefaults)
   .then(populateAndProcessAndRememberFormData);
+
+// Function to splice a value into a string at a given index.
+// http://stackoverflow.com/a/21350614/187051
+function spliceText(str, index, count, add) {
+  return str.slice(0, index) + add + str.slice(index + count);
+}
