@@ -72,7 +72,8 @@ var populateAndProcessAndRememberFormData = function (data){
     for (var day = 1; day <= numberOfDays; day++) {
 
       // Get the day name.
-      var dayName = getDayName(new Date(year, month, day).getDay());
+      var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          dayName  = dayNames[new Date(year, month, day).getDay()];
 
       // Add the day heading:
 
@@ -157,6 +158,29 @@ var populateAndProcessAndRememberFormData = function (data){
   // // // // // // // // // // // // // // // // // //
 
 
+  // Turn the Tab key into two spaces in the editor.
+  itemsField.keydown( function(key) {
+    var cursorPosition  = itemsField.get(0).selectionStart,
+        itemsFieldValue = itemsField.val();
+
+    // If it's key 9 (the [tab] key).
+    if (key.keyCode === 9) {
+      key.preventDefault();
+
+      // Rebuild the textarea:
+      // 1. Insert its own value up to the cursor position.
+      // 2. Insert two spaces (instead of a tab).
+      // 3. Insert its own value after the cursor position.
+      itemsField.html(itemsFieldValue.substring(0, cursorPosition) + '  ' + itemsFieldValue.substring(cursorPosition));
+
+      // Move the cursor position two characters ahead
+      // (after the two inserted spaces).
+      itemsField.get(0).setSelectionRange(cursorPosition + 2, cursorPosition + 2);
+
+      return false;
+    }
+  });
+
   // Regenerate TaskPaper month on subsequent updates.
   yearField.on('change', generateTaskPaperMonth);
   monthField.on('change', generateTaskPaperMonth);
@@ -166,9 +190,3 @@ var populateAndProcessAndRememberFormData = function (data){
 documentReady
   .then(loadFromCookiesOrDefaults)
   .then(populateAndProcessAndRememberFormData);
-
-// Get the name of the day.
-function getDayName(number) {
-  days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  return days[number];
-}
