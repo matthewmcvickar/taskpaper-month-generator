@@ -32,10 +32,8 @@ var loadFromCookiesOrDefaults = function (){
 // store the results in localStorage.
 var populateAndProcessAndRememberFormData = function (data){
 
-  var yearsContainer  = $('#years'),
-      anyYearField    = $('input[name="year"]'),
-      monthsContainer = $('#months'),
-      anyMonthField   = $('input[name="month"]'),
+  var yearFields      = $('input[name="year"]'),
+      monthFields     = $('input[name="month"]'),
       itemsField      = $('#items'),
       taskpaperMonth  = $('#taskpaper-month');
 
@@ -187,8 +185,8 @@ var populateAndProcessAndRememberFormData = function (data){
   });
 
   // Regenerate TaskPaper month on subsequent updates.
-  anyYearField.on('change', generateTaskPaperMonth);
-  anyMonthField.on('change', generateTaskPaperMonth);
+  yearFields.on  ('change', generateTaskPaperMonth);
+  monthFields  .on('change', generateTaskPaperMonth);
   itemsField.on('keyup', generateTaskPaperMonth);
 };
 
