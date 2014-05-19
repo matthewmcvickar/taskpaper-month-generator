@@ -38,31 +38,80 @@ var populateAndProcessAndRememberFormData = function (data){
       taskpaperMonth = $('#taskpaper-month');
 
   var generateTaskPaperMonth = function (){
-    // read contents of form, e.g.
-    var items          = itemsField.html();
+
+    // Read the form data; prepare to generate a month.
+    var itemsText      = itemsField.html(),
+        itemsArray     = [],
+        items          = {},
         numberOfDays   = new Date(data.year, data.month, 0).getDate(),
         generatedMonth = '';
 
-    // Build the array of items from the contents of the textarea.
-    generatedMonth += items;
+    // Build an array of items from the contents of the textarea.
+    // Split the textarea by digits followed by newlines.
+    itemsArray = itemsText.split(/(\d+)\n/m);
+
+    // Hack off the first (empty) array item.
+    itemsArray.shift()
+
+    // Create an associative array by iterating through even and odd
+    // array items. (Odd are day numbers, even are that day's items.)
+    $.each(itemsArray, function(key, value) {
+      if (key%2 === 0) {
+        items[itemsArray[key]] = itemsArray[key+1];
+      }
+    });
+
+    // Turn each 'items' value in the object into an array split by newlines.
+    $.each(items, function(key, value) {
+      items[key] = items[key].trim().split('\n');
+    });
+
+    console.log(items);
 
     // Loop through each of the days and include the items therein.
-    for (var day = 1; day <= numberOfDays; day++) {
+    for (var day = 0; day <= numberOfDays; day++) {
 
-      // Add leading zeroes to day numbers under 10.
-      day = day < 10 ? '0' + day : day;
+      // Get the day name.
+      var dayName = getDayName(new Date(data.year, data.month, day).getDay());
 
-      generatedMonth += day !== '01' ? '\n' : '';
+      // Add the day heading:
 
-      // Start the day.
-      generatedMonth += day;
+      // Add one to the day, since Javascript days are 0-indexed.
+      dayNumber = day + 1;
+
+      // Add a newline if we're not on the first day.
+      if (dayNumber > 1)
+        generatedMonth += '\n';
+
+      // Add a zero for days under 10.
+      if (dayNumber < 10)
+        generatedMonth += '0'
+
+      // Add the day number itself, a colon, and a newline.
+      generatedMonth += dayNumber + ' ' + dayName + ':';
 
       // If this day contains items, print them.
-      // TODO.
+      if (items[dayNumber]) {
+        $.each(items[dayNumber], function(key, value) {
+          if (value.substring(0, 2) === '  ' || value.substring(0, 2) === '- ')
+            generatedMonth += '\n\t\t' + value
+          else
+            generatedMonth += '\n\t- ' + value
+        });
+      }
+
+      // If we're on the last day of the month, generated a link back here!
+      if (dayNumber === numberOfDays)
+        generatedMonth += '\n\t- generate new Taskpaper month\n\t\thttp://matthewmcvickar.github.io/taskpaper-month-generator';
+
     }
 
     taskpaperMonth.html(generatedMonth);
   };
+
+
+  // // // // // // // // // // // // // // // // // //
+
 
   // Initial setup:
 
@@ -71,7 +120,7 @@ var populateAndProcessAndRememberFormData = function (data){
       nextYear    = currentYear + 1,
       years       = [currentYear, nextYear];
 
-  $.each(years, function(key, value) {
+ $.each(years, function (key, value){
     yearField.append(
       $('<option></option>').attr('value', value).text(value)
     );
@@ -92,7 +141,9 @@ var populateAndProcessAndRememberFormData = function (data){
   // 6. Generate TaskPaper month for the first time.
   generateTaskPaperMonth();
 
-  //
+
+  // // // // // // // // // // // // // // // // // //
+
 
   // Regenerate TaskPaper month on subsequent updates.
   itemsField.on('keyup', generateTaskPaperMonth);
@@ -101,3 +152,31 @@ var populateAndProcessAndRememberFormData = function (data){
 documentReady
   .then(loadFromCookiesOrDefaults)
   .then(populateAndProcessAndRememberFormData);
+
+// Get the name of the day.
+function getDayName(day) {
+  switch (day) {
+    case 0:
+      dayName = 'Sunday';
+      break;
+    case 1:
+      dayName = 'Monday';
+      break;
+    case 2:
+      dayName = 'Tuesday';
+      break;
+    case 3:
+      dayName = 'Wednesday';
+      break;
+    case 4:
+      dayName = 'Thursday';
+      break;
+    case 5:
+      dayName = 'Friday';
+      break;
+    case 6:
+      dayName = 'Saturday';
+  }
+
+  return dayName;
+}
