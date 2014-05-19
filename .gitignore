@@ -2,6 +2,7 @@
 build
 .sass-cache
 codekit-config.json
+config.rb
 config.codekit
 error_log
 

@@ -1,53 +1,46 @@
-$(function() {
+// Wait until the form has loaded entirely.
+var documentReady = new Promise($(document).ready);
+
+// Load the year, month, and items values from localStorage,
+// or get the current year and month and the default item set.
+var loadFromCookiesOrDefaults = function (){
+
+  return new Promise(function (resolve){
+    if (localStorage.getItem('items')){
+      resolve({
+        items : localStorage.getItem('items'),
+        year  : localStorage.getItem('year'),
+        month : localStorage.getItem('month')
+      });
+    } else {
+      $.get('default-item-list.txt', function (data) {
+        var today = new Date();
+
+        resolve({
+          items : data,
+          year  : today.getFullYear(),
+          month : today.getMonth()
+        });
+      });
+    }
+  });
+
+};
+
+// Populate the form from the loaded data,
+// generate the TaskPaper month from the items field, and
+// store the results in localStorage.
+var populateAndProcessAndRememberFormData = function (data){
 
   var yearField      = $('#year'),
       monthField     = $('#month'),
       itemsField     = $('#items'),
       taskpaperMonth = $('#taskpaper-month');
 
-  // Fetch the default item list.
-  function getDefaultItemList() {
-    var defaultItemListData = null;
-
-    $.get('default-item-list.txt', function(data) {
-      defaultItemListData = data;
-    });
-
-    return defaultItemListData;
-  }
-
-  var defaultItemList = getDefaultItemList();
-
-  // Focus on the items textbox on load.
-  itemsField.focus();
-
-  // If we have cookies, set the month <select>, year <select>, and
-  // item list <textarea> to cookie values.
-
-  // TODO
-
-  // Otherwise:
-  // 1. Populate the items <textarea> with the contents of the default item
-  //    list text file.
-  itemsField.html(getDefaultItemList);
-
-  // 2. Populate year <select> with current and next year.
-  var currentYear = new Date().getFullYear(),
-      nextYear    = currentYear + 1,
-      years       = [currentYear, nextYear];
-
-  $.each(years, function(key, value) {
-    yearField.append(
-      $('<option></option>').attr('value', value).text(value)
-    );
-  });
-
-  // Build a TaskPaper month with a given year and month.
-  function generateMonth(year, month, items) {
-    var year           = typeof year === 'undefined' ? new Date().getFullYear() : year,
-        month          = typeof month === 'undefined' ? new Date().getMonth() : month,
-        items          = typeof items === 'undefined' ? items : items,
-        numberOfDays   = new Date(year, month, 0).getDate(),
+  var generateTaskPaperMonth = function (){
+    // read contents of form, e.g.
+    var items          = itemsField.html();
+        numberOfDays   = new Date(data.year, data.month, 0).getDate(),
         generatedMonth = '';
 
     // Build the array of items from the contents of the textarea.
@@ -68,17 +61,43 @@ $(function() {
       // TODO.
     }
 
-    return generatedMonth;
-  }
+    taskpaperMonth.html(generatedMonth);
+  };
 
-  // Update the generated month live with the rebuilt contents of
-  // the item list text box.
-  itemsField.on('keyup', function() {
-    // TODO.
+  // Initial setup:
+
+  // 1. Populate year <select> with current and next year.
+  var currentYear = new Date().getFullYear(),
+      nextYear    = currentYear + 1,
+      years       = [currentYear, nextYear];
+
+  $.each(years, function(key, value) {
+    yearField.append(
+      $('<option></option>').attr('value', value).text(value)
+    );
   });
 
+  // 2. Select the loaded year.
 
-  // Debug output.
-  taskpaperMonth.html(generateMonth(null, null, getDefaultItemList()));
+  // TODO
 
-});
+  // 3. Select the loaded month.
+
+  // TODO
+
+  // 4. Populate items field with loaded items.
+  // 5. Give items field focus.
+  itemsField.html(data.items).focus();
+
+  // 6. Generate TaskPaper month for the first time.
+  generateTaskPaperMonth();
+
+  //
+
+  // Regenerate TaskPaper month on subsequent updates.
+  itemsField.on('keyup', generateTaskPaperMonth);
+};
+
+documentReady
+  .then(loadFromCookiesOrDefaults)
+  .then(populateAndProcessAndRememberFormData);
