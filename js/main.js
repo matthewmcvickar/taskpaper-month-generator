@@ -48,7 +48,7 @@ var populateAndProcessAndRememberFormData = function (data){
 
     // Build an array of items from the contents of the textarea.
     // Split the textarea by digits followed by newlines.
-    itemsArray = itemsText.split(/(\d+)\n/m);
+    itemsArray = itemsText.split(/(\d+):?\n/m);
 
     // Hack off the first (empty) array item.
     itemsArray.shift()
