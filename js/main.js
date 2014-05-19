@@ -40,11 +40,13 @@ var populateAndProcessAndRememberFormData = function (data){
   var generateTaskPaperMonth = function (){
 
     // Read the form data; prepare to generate a month.
-    var itemsText      = itemsField.html(),
+    var itemsText      = itemsField.val(),
         itemsArray     = [],
         items          = {},
         numberOfDays   = new Date(data.year, data.month, 0).getDate(),
         generatedMonth = '';
+
+    console.log(itemsText);
 
     // Build an array of items from the contents of the textarea.
     // Split the textarea by digits followed by newlines.
@@ -65,8 +67,6 @@ var populateAndProcessAndRememberFormData = function (data){
     $.each(items, function(key, value) {
       items[key] = items[key].trim().split('\n');
     });
-
-    console.log(items);
 
     // Loop through each of the days and include the items therein.
     for (var day = 0; day <= numberOfDays; day++) {
@@ -93,8 +93,16 @@ var populateAndProcessAndRememberFormData = function (data){
       // If this day contains items, print them.
       if (items[dayNumber]) {
         $.each(items[dayNumber], function(key, value) {
-          if (value.substring(0, 2) === '  ' || value.substring(0, 2) === '- ')
+          // If the line starts with two spaces, make it a comment.
+          if (value.substring(0, 2) === '  ')
             generatedMonth += '\n\t\t' + value
+
+          // If the line starts with a dash and a space, make it a todo.
+          // (This is not the suggested syntax, but that's OK!)
+          if (value.substring(0, 2) === '- ')
+            generatedMonth += '\n\t' + value
+
+          // Otherwise, make it a todo.
           else
             generatedMonth += '\n\t- ' + value
         });
@@ -106,7 +114,15 @@ var populateAndProcessAndRememberFormData = function (data){
 
     }
 
+    console.log('Fire!');
+
+    // Print generated TaskPaper month to the screen.
     taskpaperMonth.html(generatedMonth);
+
+    // Save values to localStorage.
+    localStorage.setItem('year',  yearField.val()   );
+    localStorage.setItem('month', monthField.val()  );
+    localStorage.setItem('items', itemsField.html() );
   };
 
 
@@ -127,12 +143,10 @@ var populateAndProcessAndRememberFormData = function (data){
   });
 
   // 2. Select the loaded year.
-
-  // TODO
+  $('#year').val(data.year);
 
   // 3. Select the loaded month.
-
-  // TODO
+  $('#month').val(data.month);
 
   // 4. Populate items field with loaded items.
   // 5. Give items field focus.
