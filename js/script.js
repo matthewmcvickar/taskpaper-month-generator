@@ -32,16 +32,20 @@ var loadFromCookiesOrDefaults = function (){
 // store the results in localStorage.
 var populateAndProcessAndRememberFormData = function (data){
 
-  var yearField      = $('#year'),
-      monthField     = $('#month'),
-      itemsField     = $('#items'),
-      taskpaperMonth = $('#taskpaper-month');
+  var yearsContainer  = $('#years'),
+      anyYearField    = $('input[name="year"]'),
+      monthsContainer = $('#months'),
+      anyMonthField   = $('input[name="month"]'),
+      itemsField      = $('#items'),
+      taskpaperMonth  = $('#taskpaper-month');
 
   var generateTaskPaperMonth = function (){
 
     // Read the form data; prepare to generate a month.
-    var year           = yearField.val(),
-        month          = monthField.val() - 1, // Months are zero-indexed.
+    var selectedYear   = $('input[name="year"]:checked'),
+        selectedMonth  = $('input[name="month"]:checked'),
+        year           = selectedYear.val(),
+        month          = selectedMonth.val() - 1, // Months are zero-indexed.
         itemsText      = itemsField.val(),
         itemsArray     = [],
         items          = {},
@@ -121,9 +125,9 @@ var populateAndProcessAndRememberFormData = function (data){
     taskpaperMonth.val(generatedMonth);
 
     // Save values to localStorage.
-    localStorage.setItem('year',  yearField.val()  );
-    localStorage.setItem('month', monthField.val() );
-    localStorage.setItem('items', itemsField.val() );
+    localStorage.setItem('year',  selectedYear.val()  );
+    localStorage.setItem('month', selectedMonth.val() );
+    localStorage.setItem('items', itemsField.val()    );
   };
 
 
@@ -132,22 +136,25 @@ var populateAndProcessAndRememberFormData = function (data){
 
   // Initial setup:
 
-  // 1. Populate year <select> with current and next year.
-  var currentYear = new Date().getFullYear(),
-      nextYear    = currentYear + 1,
-      years       = [currentYear, nextYear];
+  // 1. Populate year buttons with current and next year.
+  var thisYear = new Date().getFullYear(),
+      nextYear = thisYear + 1;
 
- $.each(years, function (key, value){
-    yearField.append(
-      $('<option></option>').attr('value', value).text(value)
-    );
-  });
+  $('#year-this')
+    .attr('id', 'year-' + thisYear)
+    .attr('value', thisYear)
+    .after($('<label for="year-' + thisYear + '">' + thisYear + '</label>'));
+
+  $('#year-next')
+    .attr('id', 'year-' + nextYear)
+    .attr('value', nextYear)
+    .after($('<label for="year-' + nextYear + '">' + nextYear + '</label>'));
 
   // 2. Select the loaded year.
-  $('#year').val(data.year);
+  $('#year-' + data.year).attr('checked', true);
 
   // 3. Select the loaded month.
-  $('#month').val(data.month);
+  $('#month-' + data.month).attr('checked', true);
 
   // 4. Populate items field with loaded items.
   // 5. Give items field focus.
@@ -180,8 +187,8 @@ var populateAndProcessAndRememberFormData = function (data){
   });
 
   // Regenerate TaskPaper month on subsequent updates.
-  yearField.on('change', generateTaskPaperMonth);
-  monthField.on('change', generateTaskPaperMonth);
+  anyYearField.on('change', generateTaskPaperMonth);
+  anyMonthField.on('change', generateTaskPaperMonth);
   itemsField.on('keyup', generateTaskPaperMonth);
 };
 

@@ -89,6 +89,13 @@ textarea {
   flex: 1;
   flex-direction: column;
 }
+.input .choose-year-and-month input {
+  display: none;
+}
+.input .choose-year-and-month input:checked + label {
+  background: black;
+  color: white;
+}
 .input textarea {
   flex: 1;
 }
