@@ -41,11 +41,11 @@ var populateAndProcessAndRememberFormData = function (data){
 
     // Read the form data; prepare to generate a month.
     var year           = yearField.val(),
-        month          = monthField.val(),
+        month          = monthField.val() - 1, // Months are zero-indexed.
         itemsText      = itemsField.val(),
         itemsArray     = [],
         items          = {},
-        numberOfDays   = new Date(year, month, 0).getDate(),
+        numberOfDays   = new Date(year, month, 0).getDate() + 1, // Days are also zero-indexed.
         generatedMonth = '';
 
     // Build an array of items from the contents of the textarea.
@@ -69,7 +69,7 @@ var populateAndProcessAndRememberFormData = function (data){
     });
 
     // Loop through each of the days and include the items therein.
-    for (var day = 0; day < numberOfDays; day++) {
+    for (var day = 1; day <= numberOfDays; day++) {
 
       // Get the day name.
       var dayName = getDayName(new Date(year, month, day).getDay());
@@ -77,7 +77,7 @@ var populateAndProcessAndRememberFormData = function (data){
       // Add the day heading:
 
       // 1. Add one to the day, since Javascript days are 0-indexed.
-      dayNumber = day + 1;
+      dayNumber = day;
 
       // 2. Add a newline if we're not on the first day.
       if (dayNumber > 1)
