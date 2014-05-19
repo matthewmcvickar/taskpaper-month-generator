@@ -40,10 +40,12 @@ var populateAndProcessAndRememberFormData = function (data){
   var generateTaskPaperMonth = function (){
 
     // Read the form data; prepare to generate a month.
-    var itemsText      = itemsField.val(),
+    var year           = yearField.val(),
+        month          = monthField.val(),
+        itemsText      = itemsField.val(),
         itemsArray     = [],
         items          = {},
-        numberOfDays   = new Date(data.year, data.month, 0).getDate(),
+        numberOfDays   = new Date(year, month, 0).getDate(),
         generatedMonth = '';
 
     // Build an array of items from the contents of the textarea.
@@ -70,7 +72,7 @@ var populateAndProcessAndRememberFormData = function (data){
     for (var day = 0; day < numberOfDays; day++) {
 
       // Get the day name.
-      var dayName = getDayName(new Date(data.year, data.month, day).getDay());
+      var dayName = getDayName(new Date(year, month, day).getDay());
 
       // Add the day heading:
 
@@ -156,6 +158,8 @@ var populateAndProcessAndRememberFormData = function (data){
 
 
   // Regenerate TaskPaper month on subsequent updates.
+  yearField.on('change', generateTaskPaperMonth);
+  monthField.on('change', generateTaskPaperMonth);
   itemsField.on('keyup', generateTaskPaperMonth);
 };
 
