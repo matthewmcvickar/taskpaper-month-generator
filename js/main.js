@@ -93,7 +93,7 @@ var populateAndProcessAndRememberFormData = function (data){
       // If this day contains items, print them.
       if (items[dayNumber]) {
         $.each(items[dayNumber], function(key, value) {
-          // If the line starts with two spaces, make it a comment.
+          // If the line starts with two spaces, make it a note.
           if (value.substring(0, 2) === '  ')
             generatedMonth += '\n\t\t' + value
 
