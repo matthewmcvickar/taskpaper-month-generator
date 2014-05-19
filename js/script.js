@@ -86,7 +86,7 @@ var populateAndProcessAndRememberFormData = function (data){
 
       // 3. Add a zero for days under 10.
       if (dayNumber < 10)
-        generatedMonth += '0'
+        generatedMonth += '0';
 
       // 4. Add the day number itself, a colon, and a newline.
       generatedMonth += dayNumber + ' ' + dayName + ':';
@@ -94,6 +94,7 @@ var populateAndProcessAndRememberFormData = function (data){
       // If this day contains items, print them.
       if (items[dayNumber]) {
         $.each(items[dayNumber], function(key, value) {
+
           // If the line starts with two spaces or a tab character, make it a note.
           if (value.substring(0, 2) === '  ' || value.substring(0, 1) === '\t')
             generatedMonth += '\n\t\t' + value;
@@ -106,6 +107,7 @@ var populateAndProcessAndRememberFormData = function (data){
           // Otherwise, make it a todo.
           else
             generatedMonth += '\n\t- ' + value;
+
         });
       }
 

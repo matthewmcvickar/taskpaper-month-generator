@@ -72,14 +72,24 @@ body {
 }
 
 body {
-  font-family: Helvetica, sans-serif;
-  font-size: 16px;
   display: flex;
+}
+
+body,
+input,
+textarea {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 .input {
   background: #eeeeee;
   display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.input textarea {
   flex: 1;
 }
 
@@ -95,7 +105,6 @@ form textarea {
   padding: 1%;
   resize: vertical;
   width: 100%;
-  height: 500px;
 }
 form select,
 form input {

@@ -26,9 +26,11 @@ items as specified in the plain-text hierarchy below.
   </head>
   <body>
     <div class="input">
-      <form action="./" method="post">
+      <header>
         <h1>TaskPaper Month Generator</h1>
+      </header>
 
+      <div class="choose-month">
         <select id="month">
           <option value="01">January</option>
           <option value="02">February</option>
@@ -47,18 +49,20 @@ items as specified in the plain-text hierarchy below.
         <select id="year">
           <!-- Current and next year filled from JS. -->
         </select>
+      </div>
 
-        <textarea tabindex="1" id="items">
-          <!-- Filled from localStorage or defaults. -->
-        </textarea>
+      <textarea tabindex="1" id="items">
+        <!-- Filled from localStorage or defaults. -->
+      </textarea>
 
-        <p class="credits">
+      <footer>
+        <p>
           Use simple syntax to generator a copy-and-pasteable month of tasks into TaskPaper. <a href="https://github.com/matthewmcvickar/taskpaper-month-generator">Source on GitHub.</a><br>
           For use with <a href="https://github.com/matthewmcvickar/taskpapertiles">TaskPaper Tiles</a>, a TaskPaper-based productivity framework.<br>
           TaskPaper Month Generator and TaskPaper Tiles by <a href="http://matthewmcvickar.com">Matthew McVickar</a>.<br>
           <a href="http://www.hogbaysoftware.com/products/taskpaper">TaskPaper</a> by <a href="https://twitter.com/jessegrosjean">Jesse Grosjean</a>.
         </p>
-      </form>
+      </footer>
     </div>
 
     <div class="output">
