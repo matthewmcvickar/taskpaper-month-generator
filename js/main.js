@@ -69,7 +69,7 @@ var populateAndProcessAndRememberFormData = function (data){
     });
 
     // Loop through each of the days and include the items therein.
-    for (var day = 0; day <= numberOfDays; day++) {
+    for (var day = 0; day < numberOfDays; day++) {
 
       // Get the day name.
       var dayName = getDayName(new Date(data.year, data.month, day).getDay());
