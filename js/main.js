@@ -46,8 +46,6 @@ var populateAndProcessAndRememberFormData = function (data){
         numberOfDays   = new Date(data.year, data.month, 0).getDate(),
         generatedMonth = '';
 
-    console.log(itemsText);
-
     // Build an array of items from the contents of the textarea.
     // Split the textarea by digits followed by newlines.
     itemsArray = itemsText.split(/(\d+):?\n/m);
@@ -114,15 +112,13 @@ var populateAndProcessAndRememberFormData = function (data){
 
     }
 
-    console.log('Fire!');
-
     // Print generated TaskPaper month to the screen.
     taskpaperMonth.html(generatedMonth);
 
     // Save values to localStorage.
-    localStorage.setItem('year',  yearField.val()   );
-    localStorage.setItem('month', monthField.val()  );
-    localStorage.setItem('items', itemsField.html() );
+    localStorage.setItem('year',  yearField.val()  );
+    localStorage.setItem('month', monthField.val() );
+    localStorage.setItem('items', itemsField.val() );
   };
 
 
