@@ -53,7 +53,7 @@ var populateAndProcessAndRememberFormData = function (data){
     itemsArray = itemsText.split(/(\d+):?\n/m);
 
     // Hack off the first (empty) array item.
-    itemsArray.shift()
+    itemsArray.shift();
 
     // Create an associative array by iterating through even and odd
     // array items. (Odd are day numbers, even are that day's items.)
@@ -94,18 +94,18 @@ var populateAndProcessAndRememberFormData = function (data){
       // If this day contains items, print them.
       if (items[dayNumber]) {
         $.each(items[dayNumber], function(key, value) {
-          // If the line starts with two spaces, make it a note.
-          if (value.substring(0, 2) === '  ')
-            generatedMonth += '\n\t\t' + value
+          // If the line starts with two spaces or a tab character, make it a note.
+          if (value.substring(0, 2) === '  ' || value.substring(0, 1) === '\t')
+            generatedMonth += '\n\t\t' + value;
 
           // If the line starts with a dash and a space, make it a todo.
           // (This is not the suggested syntax, but that's OK!)
           else if (value.substring(0, 2) === '- ')
-            generatedMonth += '\n\t' + value
+            generatedMonth += '\n\t' + value;
 
           // Otherwise, make it a todo.
           else
-            generatedMonth += '\n\t- ' + value
+            generatedMonth += '\n\t- ' + value;
         });
       }
 
@@ -158,21 +158,20 @@ var populateAndProcessAndRememberFormData = function (data){
   // // // // // // // // // // // // // // // // // //
 
 
-  // Turn the Tab key into two spaces in the editor.
+  // Make the Tab key insert an actual tab in the textarea.
   itemsField.keydown( function(key) {
     var cursorPosition  = itemsField.get(0).selectionStart,
         itemsFieldValue = itemsField.val();
 
-    // If it's key 9 (the [tab] key).
+    // If it's the Tab key, insert two spcaes instead.
     if (key.keyCode === 9) {
       key.preventDefault();
 
-      // Rebuild the textarea:
-      itemsField.val(spliceText(itemsFieldValue, cursorPosition, 0, '  '));
+      // Splice the tab character in at the cursor position.
+      itemsField.val(spliceText(itemsFieldValue, cursorPosition, 0, '\t'));
 
-      // Move the cursor position two characters ahead
-      // (after the two inserted spaces).
-      itemsField.get(0).setSelectionRange(cursorPosition + 2, cursorPosition + 2);
+      // Move the cursor position two characters ahead (after the tab).
+      itemsField.get(0).setSelectionRange(cursorPosition + 1, cursorPosition + 1);
 
       return false;
     }
