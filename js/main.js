@@ -76,18 +76,18 @@ var populateAndProcessAndRememberFormData = function (data){
 
       // Add the day heading:
 
-      // Add one to the day, since Javascript days are 0-indexed.
+      // 1. Add one to the day, since Javascript days are 0-indexed.
       dayNumber = day + 1;
 
-      // Add a newline if we're not on the first day.
+      // 2. Add a newline if we're not on the first day.
       if (dayNumber > 1)
         generatedMonth += '\n';
 
-      // Add a zero for days under 10.
+      // 3. Add a zero for days under 10.
       if (dayNumber < 10)
         generatedMonth += '0'
 
-      // Add the day number itself, a colon, and a newline.
+      // 4. Add the day number itself, a colon, and a newline.
       generatedMonth += dayNumber + ' ' + dayName + ':';
 
       // If this day contains items, print them.
