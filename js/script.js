@@ -185,8 +185,8 @@ var populateAndProcessAndRememberFormData = function (data){
   });
 
   // Regenerate TaskPaper month on subsequent updates.
-  yearFields.on  ('change', generateTaskPaperMonth);
-  monthFields  .on('change', generateTaskPaperMonth);
+  yearFields.on('change', generateTaskPaperMonth);
+  monthFields.on('change', generateTaskPaperMonth);
   itemsField.on('keyup', generateTaskPaperMonth);
 };
 
