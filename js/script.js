@@ -24,6 +24,13 @@ $(function() {
     month = today.getMonth();
   }
 
+  // Replace saved values with parameters, if they exist.
+  if (getParameterByName('year') !== '')
+    year  = getParameterByName('year');
+
+  if (getParameterByName('month') !== '')
+    month = getParameterByName('month');
+
 
   // Initial setup:
   // 1. Populate year buttons with current and next year.
@@ -205,6 +212,16 @@ $(function() {
   // http://stackoverflow.com/a/21350614/187051
   function spliceText(str, index, count, add) {
     return str.slice(0, index) + add + str.slice(index + count);
+  }
+
+
+
+  // Function to grab parameters from URL.
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+        results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   }
 
 });
