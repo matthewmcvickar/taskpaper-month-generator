@@ -1,6 +1,7 @@
 // Includes
 
 @import "reset"
+@import "mixins"
 
 
 // Variables
@@ -33,9 +34,6 @@ body,
   display: flex
   flex-direction: column
 
-  header
-    //
-
   .choose-month-and-year
     display: flex
 
@@ -64,9 +62,6 @@ body,
 
       textarea
         flex: 1
-
-  footer
-    //
 
 
 // Design
@@ -113,6 +108,15 @@ header
   input:checked + label
     background: $blue
     color: white
+
+  input.current-month + label,
+  input.current-year + label
+    @include triangle-bottom(3px, #aaa, "up")
+
+  input.current-month:checked + label,
+  input.current-year:checked + label
+    @include triangle-bottom(3px, $blue, "up")
+
 
 
 // Item List Textbox and Generated TaskPaper Month

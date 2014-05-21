@@ -46,11 +46,17 @@ $(function() {
   // 3. Select the loaded month.
   $('#month-' + month).attr('checked', true);
 
-  // 4. Populate items field with loaded items.
-  // 5. Give items field focus.
+  // 4. Indicate the current month and year.
+  var currentMonth = new Date().getMonth() + 1,
+      currentYear  = new Date().getFullYear();
+  $('#month-' + currentMonth).addClass('current-month');
+  $('#year-' + currentYear).addClass('current-year');
+
+  // 5. Populate items field with loaded items.
+  // 6. Give items field focus.
   itemsField.val(items).focus();
 
-  // 6. Generate TaskPaper month for the first time.
+  // 7. Generate TaskPaper month for the first time.
   generateTaskPaperMonth();
 
 
