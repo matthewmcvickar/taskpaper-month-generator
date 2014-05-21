@@ -1,43 +1,63 @@
-// Wait until the form has loaded entirely.
-var documentReady = new Promise($(document).ready);
+$(function() {
 
-// Load the year, month, and items values from localStorage,
-// or get the current year and month and the default item set.
-var loadFromCookiesOrDefaults = function (){
-
-  return new Promise(function (resolve){
-    if (localStorage.getItem('items')){
-      resolve({
-        items : localStorage.getItem('items'),
-        year  : localStorage.getItem('year'),
-        month : localStorage.getItem('month')
-      });
-    } else {
-      $.get('default-item-list.txt', function (data) {
-        var today = new Date();
-
-        resolve({
-          items : data,
-          year  : today.getFullYear(),
-          month : today.getMonth()
-        });
-      });
-    }
-  });
-
-};
-
-// Populate the form from the loaded data,
-// generate the TaskPaper month from the items field, and
-// store the results in localStorage.
-var populateAndProcessAndRememberFormData = function (data){
-
-  var yearFields      = $('input[name="year"]'),
+  // Initialize defaults and variables.
+  var defaultTaskList = '1\nto-do item\n\n14\nappointment reminder\n\tdetails of appointment\n\n29\ntask\nanother task\n\ta note for this task\n\tanother note',
+      yearFields      = $('input[name="year"]'),
       monthFields     = $('input[name="month"]'),
       itemsField      = $('#items'),
-      taskpaperMonth  = $('#taskpaper-month');
+      taskpaperMonth  = $('#taskpaper-month'),
+      year,
+      month,
+      items;
 
-  var generateTaskPaperMonth = function (){
+
+  // Load the year, month, and items values from localStorage,
+  // or get the current year and month and the default item set.
+  if (localStorage.getItem('items')) {
+    items = localStorage.getItem('items');
+    year  = localStorage.getItem('year');
+    month = localStorage.getItem('month');
+  } else {
+    today = new Date();
+    items = defaultTaskList;
+    year  = today.getFullYear();
+    month = today.getMonth();
+  }
+
+
+  // Initial setup:
+  // 1. Populate year buttons with current and next year.
+  var thisYear = new Date().getFullYear(),
+      nextYear = thisYear + 1;
+
+  $('#year-this')
+    .attr('id', 'year-' + thisYear)
+    .attr('value', thisYear)
+    .after($('<label for="year-' + thisYear + '">' + thisYear + '</label>'));
+
+  $('#year-next')
+    .attr('id', 'year-' + nextYear)
+    .attr('value', nextYear)
+    .after($('<label for="year-' + nextYear + '">' + nextYear + '</label>'));
+
+  // 2. Select the loaded year.
+  $('#year-' + year).attr('checked', true);
+
+  // 3. Select the loaded month.
+  $('#month-' + month).attr('checked', true);
+
+  // 4. Populate items field with loaded items.
+  // 5. Give items field focus.
+  itemsField.val(items).focus();
+
+  // 6. Generate TaskPaper month for the first time.
+  generateTaskPaperMonth();
+
+
+  // Populate the form from the loaded data,
+  // generate the TaskPaper month from the items field, and
+  // store the results in localStorage.
+  function generateTaskPaperMonth() {
 
     // Read the form data; prepare to generate a month.
     var selectedYear   = $('input[name="year"]:checked'),
@@ -126,43 +146,7 @@ var populateAndProcessAndRememberFormData = function (data){
     localStorage.setItem('year',  selectedYear.val()  );
     localStorage.setItem('month', selectedMonth.val() );
     localStorage.setItem('items', itemsField.val()    );
-  };
-
-
-  // // // // // // // // // // // // // // // // // //
-
-
-  // Initial setup:
-
-  // 1. Populate year buttons with current and next year.
-  var thisYear = new Date().getFullYear(),
-      nextYear = thisYear + 1;
-
-  $('#year-this')
-    .attr('id', 'year-' + thisYear)
-    .attr('value', thisYear)
-    .after($('<label for="year-' + thisYear + '">' + thisYear + '</label>'));
-
-  $('#year-next')
-    .attr('id', 'year-' + nextYear)
-    .attr('value', nextYear)
-    .after($('<label for="year-' + nextYear + '">' + nextYear + '</label>'));
-
-  // 2. Select the loaded year.
-  $('#year-' + data.year).attr('checked', true);
-
-  // 3. Select the loaded month.
-  $('#month-' + data.month).attr('checked', true);
-
-  // 4. Populate items field with loaded items.
-  // 5. Give items field focus.
-  itemsField.val(data.items).focus();
-
-  // 6. Generate TaskPaper month for the first time.
-  generateTaskPaperMonth();
-
-
-  // // // // // // // // // // // // // // // // // //
+  }
 
 
   // Make the Tab key insert an actual tab in the textarea.
@@ -184,18 +168,17 @@ var populateAndProcessAndRememberFormData = function (data){
     }
   });
 
+
   // Regenerate TaskPaper month on subsequent updates.
   yearFields.on('change', generateTaskPaperMonth);
   monthFields.on('change', generateTaskPaperMonth);
   itemsField.on('keyup', generateTaskPaperMonth);
-};
 
-documentReady
-  .then(loadFromCookiesOrDefaults)
-  .then(populateAndProcessAndRememberFormData);
 
-// Function to splice a value into a string at a given index.
-// http://stackoverflow.com/a/21350614/187051
-function spliceText(str, index, count, add) {
-  return str.slice(0, index) + add + str.slice(index + count);
-}
+  // Function to splice a value into a string at a given index.
+  // http://stackoverflow.com/a/21350614/187051
+  function spliceText(str, index, count, add) {
+    return str.slice(0, index) + add + str.slice(index + count);
+  }
+
+});
