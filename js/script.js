@@ -119,7 +119,7 @@ $(function() {
 
           // If the line starts with two spaces or a tab character, make it a note.
           if (value.substring(0, 2) === '  ' || value.substring(0, 1) === '\t')
-            generatedMonth += '\n\t\t' + value;
+            generatedMonth += '\n\t' + value;
 
           // If the line starts with a dash and a space, make it a todo.
           // (This is not the suggested syntax, but that's OK!)
