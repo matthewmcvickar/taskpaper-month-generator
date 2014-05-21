@@ -158,6 +158,39 @@ header
 .output
   padding: 1em
 
+  #copy-button
+    background-image: linear-gradient(180deg, #fafafa, #eee)
+    border: 1px solid #ccc
+    border-radius: 3px
+    color: #aaa
+    cursor: pointer
+    font-family: "Helvetica Neue", sans-serif
+    font-size: 12px
+    padding: 2px 2px 2px 6px
+    text-align: left
+    position: absolute
+    top: 33px
+    right: 15px
+    outline: 0
+
+    img
+      opacity: .5
+      margin-left: 3px
+      vertical-align: -6px
+      width: 20px
+
+    &.zeroclipboard-is-hover
+      background: linear-gradient(180deg, #eee, #ddd)
+      border: 1px solid #333
+      color: #333
+
+      img
+        opacity: 1
+
+    &.zeroclipboard-is-active
+      background: linear-gradient(180deg, #ddd, #eee)
+      color: #333
+
   textarea
     background: #f4f4f4
     border: 0

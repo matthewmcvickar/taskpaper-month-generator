@@ -175,6 +175,26 @@ $(function() {
   itemsField.on('keyup', generateTaskPaperMonth);
 
 
+  // ZeroClipboard
+  // https://github.com/zeroclipboard/zeroclipboard
+  // Flash/JS button to copy the generated TaskPaper month.
+
+  ZeroClipboard.config({ moviePath: 'js/vendor/ZeroClipboard/ZeroClipboard.swf' });
+
+  var client = new ZeroClipboard($('#copy-button'));
+
+  client.on('load', function(client) {
+    client.on('datarequested', function(client) {
+      client.setText(taskpaperMonth.val());
+    } );
+
+    client.on('complete', function(client, data) {
+      console.log("Copied text to clipboard: " + data.text );
+    } );
+  } );
+
+
+
   // Function to splice a value into a string at a given index.
   // http://stackoverflow.com/a/21350614/187051
   function spliceText(str, index, count, add) {
