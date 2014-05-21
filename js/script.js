@@ -76,7 +76,7 @@ $(function() {
     var selectedYear   = $('input[name="year"]:checked'),
         selectedMonth  = $('input[name="month"]:checked'),
         year           = selectedYear.val(),
-        month          = selectedMonth.val() - 1, // Months are zero-indexed.
+        month          = selectedMonth.val() - 1, // Months are zero-indexed, so I'm setting 4 but need to say 3 to JavaScript.
         itemsText      = itemsField.val(),
         itemsArray     = [],
         items          = {},
@@ -147,8 +147,10 @@ $(function() {
       }
 
       // If we're on the last day of the month, generated a link back here!
+      var nextMonth = getNextMonth(month, year);
+
       if (dayNumber === numberOfDays)
-        generatedMonth += '\n\t- generate new Taskpaper month\n\t\thttp://matthewmcvickar.github.io/taskpaper-month-generator';
+        generatedMonth += '\n\t- generate new Taskpaper month\n\t\thttp://matthewmcvickar.github.io/taskpaper-month-generator?year=' + nextMonth['year'] + '&month=' +  nextMonth['month'];
 
     }
 
@@ -208,20 +210,37 @@ $(function() {
 
 
 
-  // Function to splice a value into a string at a given index.
-  // http://stackoverflow.com/a/21350614/187051
-  function spliceText(str, index, count, add) {
-    return str.slice(0, index) + add + str.slice(index + count);
+  // Splice a value into a string at a given index.
+  // Adapted from: http://stackoverflow.com/a/21350614/187051
+  function spliceText(string, index, charactersToReplace, stringToAdd) {
+    return string.slice(0, index) + stringToAdd + string.slice(index + charactersToReplace);
   }
 
 
-
-  // Function to grab parameters from URL.
+  // Grab parameters from URL.
+  // Adapted from: http://stackoverflow.com/a/901144/187051
   function getParameterByName(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
         results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  }
+
+
+  // Figure out next month.
+  function getNextMonth(month, year) {
+    var nextMonth = {};
+
+    // If the month is December, start over with January.
+    if (month == 11) {
+      nextMonth['month'] = 1;
+      nextMonth['year']  = Number(year) + 1;
+    } else {
+      nextMonth['month'] = Number(month) + 2;
+      nextMonth['year']  = year;
+    }
+
+    return nextMonth;
   }
 
 });
