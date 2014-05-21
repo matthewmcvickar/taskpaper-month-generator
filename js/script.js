@@ -157,6 +157,10 @@ $(function() {
     // Print generated TaskPaper month to the screen.
     taskpaperMonth.val(generatedMonth);
 
+    // Remove parameters from the URL, since we've changed the year and month on pageload.                               // Remember, zero-indexed month.
+    var cleanURL  = window.location.href.substring(0, window.location.href.indexOf('?')) + '?year=' + year + '&month=' + (Number(month) + 1);
+    history.pushState({}, '', cleanURL);
+
     // Save values to localStorage.
     localStorage.setItem('year',  selectedYear.val()  );
     localStorage.setItem('month', selectedMonth.val() );
@@ -193,11 +197,8 @@ $(function() {
   // ZeroClipboard
   // https://github.com/zeroclipboard/zeroclipboard
   // Flash/JS button to copy the generated TaskPaper month.
-
   ZeroClipboard.config({ moviePath: 'js/vendor/ZeroClipboard/ZeroClipboard.swf' });
-
   var client = new ZeroClipboard($('#copy-button'));
-
   client.on('load', function(client) {
     client.on('datarequested', function(client) {
       client.setText(taskpaperMonth.val());
