@@ -191,13 +191,13 @@ $(function() {
   // Regenerate TaskPaper month on subsequent updates.
   yearFields.on('change', generateTaskPaperMonth);
   monthFields.on('change', generateTaskPaperMonth);
-  itemsField.on('keyup', generateTaskPaperMonth);
+  itemsField.keyup($.debounce(250, generateTaskPaperMonth));
 
 
   // ZeroClipboard
   // https://github.com/zeroclipboard/zeroclipboard
   // Flash/JS button to copy the generated TaskPaper month.
-  ZeroClipboard.config({ moviePath: 'js/vendor/ZeroClipboard/ZeroClipboard.swf' });
+  ZeroClipboard.config({ moviePath: 'js/vendor/ZeroClipboard.swf' });
   var client = new ZeroClipboard($('#copy-button'));
   client.on('load', function(client) {
     client.on('datarequested', function(client) {
