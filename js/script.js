@@ -77,7 +77,7 @@ $(function() {
     var selectedYear   = $('input[name="year"]:checked'),
         selectedMonth  = $('input[name="month"]:checked'),
         year           = selectedYear.val(),
-        month          = selectedMonth.val() - 1, // Months are zero-indexed, so I'm setting 4 but need to say 3 to JavaScript.
+        month          = selectedMonth.val() - 1, // Months are zero-indexed.
         itemsText      = itemsField.val(),
         itemsArray     = [],
         items          = {},
