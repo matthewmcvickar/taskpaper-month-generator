@@ -30,9 +30,9 @@ yet another task
   another note
 ```
 
-The generated TaskPaper month will be updated as you type. Hit the **Copy** button to copy it to your clipboard, then paste it into a Taskpaper document.
+The generated TaskPaper month will be updated as you type. Hit the **Copy** button in the generated month box to copy it all to your clipboard, then paste it into a Taskpaper document.
 
-To generate an empty month, click the **Empty** button above the editor.
+To generate an empty month, click the **Empty** button in the editor.
 
 
 ## Nifty Features
