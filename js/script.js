@@ -202,20 +202,24 @@ $(function() {
     if (itemsField.val().trim() !== '') {
       $('#confirm-recall-of-defaults').fadeIn('fast');
       $('#confirm-empty').fadeOut('fast');
+      itemsField.focus();
     } else {
-      itemsField.val(defaultTaskList);
       emptyButton.fadeIn('fast');
+      itemsField.val(defaultTaskList);
+      itemsField.focus();
     }
   });
 
   $('#do-not-recall').click(function() {
     $('#confirm-recall-of-defaults').fadeOut('fast');
+    itemsField.focus();
   });
 
   $('#do-recall').click(function() {
     $('#confirm-recall-of-defaults').fadeOut('fast');
     emptyButton.fadeIn('fast');
     itemsField.val(defaultTaskList);
+    itemsField.focus();
   });
 
 
@@ -223,16 +227,19 @@ $(function() {
   emptyButton.click(function() {
     $('#confirm-empty').fadeIn('fast');
     $('#confirm-recall-of-defaults').fadeOut('fast');
+    itemsField.focus();
   });
 
   $('#do-not-empty').click(function() {
     $('#confirm-empty').fadeOut('fast');
+    itemsField.focus();
   });
 
   $('#do-empty').click(function() {
     $('#confirm-empty').fadeOut('fast');
     itemsField.val('');
     emptyButton.fadeOut('fast');
+    itemsField.focus();
   });
 
   // If items field is empty, don't show the 'Empty' button.
