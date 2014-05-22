@@ -11,7 +11,7 @@ For use with [Taskpaper Tiles](https://github.com/matthewmcvickar/taskpapertiles
 
 Go to the **[TaskPaper Month Generator](http://matthewmcvickar.github.io/taskpaper-month-generator)**.
 
-To add tasks to a day, enter the day number, start a new line, and list each new task on a new line, like you would in TaskPaper. Start a new line and press `Tab` to start an indented note. Colons after day names are not required, but can be used. Same goes for dashes in front of tasks.
+To add tasks to a day, enter the day number, start a new line, and list each new task on a new line, like you would in TaskPaper. Start a new line and press `Tab` to start an indented note. (TaskPaper syntax—that is, colons after day names and dashes in front of tasks—is not necessary.)
 
 ### Example
 
@@ -45,8 +45,8 @@ To generate an empty month, click the **Empty** button above the editor.
 
 ## Planned Features
 
-- A syntax for tasks that happen on the last day of the month.
-- A syntax for tasks that happen on the same day every week.
+- Syntax for tasks on the last day of the month.
+- Syntax for tasks that occur weekly on a given day.
 
 
 ## Credits
@@ -55,8 +55,11 @@ To generate an empty month, click the **Empty** button above the editor.
 - [ZeroClipboard](http://zeroclipboard.org/)
 - [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)
 - [Erik Meyer's Reset](http://meyerweb.com/eric/tools/css/reset/)
-- [jQuery](http://jquery.com/) • [SASS](http://sass-lang.com/)
-- [SublimeText](http://www.sublimetext.com/) • [CodeKit](https://incident57.com/codekit/) • [Chrome Developer Tools](https://developer.chrome.com/devtools)
+- [jQuery](http://jquery.com/)
+- [SASS](http://sass-lang.com/)
+- [SublimeText](http://www.sublimetext.com/)
+- [CodeKit](https://incident57.com/codekit/)
+- [Chrome Developer Tools](https://developer.chrome.com/devtools)
 
 
 ## Thanks
