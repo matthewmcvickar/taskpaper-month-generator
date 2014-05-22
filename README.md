@@ -11,10 +11,7 @@ For use with [Taskpaper Tiles](https://github.com/matthewmcvickar/taskpapertiles
 
 Go to the **[TaskPaper Month Generator](http://matthewmcvickar.github.io/taskpaper-month-generator)**.
 
-To add tasks to a day, enter the day number, start a new line, and list each new task on a new line, like you would in TaskPaper. Start a new line and press tab to start a note.
-
-- Colons after day names are not required.
-- Dashes before tasks are not required.
+To add tasks to a day, enter the day number, start a new line, and list each new task on a new line, like you would in TaskPaper. Start a new line and press tab to start a note. Colons after day names are not required. Dashes before tasks are not required.
 
 ### Example
 
