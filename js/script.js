@@ -261,6 +261,14 @@ $(function() {
       client.setText(taskpaperMonth.val());
     });
   });
+  client.on('noFlash', function() {
+    $('#copy-button').hide();
+    console.error('No Flash installed. Hiding the \'Copy\' button.');
+  });
+  client.on('wrongFlash', function() {
+    $('#copy-button').hide();
+    console.error('Wrong Flash installed. Hiding the \'Copy\' button.');
+  });
 
 
   // Splice a value into a string at a given index.
