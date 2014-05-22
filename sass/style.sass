@@ -7,6 +7,8 @@
 // Variables
 
 $blue: #0DA1FF
+$button-offset-top: 80px
+$button-offset-right: 28px
 
 
 // Base
@@ -36,8 +38,8 @@ body
   padding: .75em
   text-align: center
   position: absolute
-  top: 77px
-  right: 25px
+  top: $button-offset-top
+  right: $button-offset-right
   z-index: 99
   width: 200px
 
@@ -224,8 +226,8 @@ header
   #empty-button
     font-size: 12px
     position: absolute
-    top: 77px
-    right: 25px
+    top: $button-offset-top
+    right: $button-offset-right
     z-index: 2
 
   textarea
@@ -256,8 +258,8 @@ header
     padding: 2px 2px 2px 6px
     text-align: left
     position: absolute
-    top: 77px
-    right: 25px
+    top: $button-offset-top
+    right: $button-offset-right
     z-index: 2
 
     &.zeroclipboard-is-hover
