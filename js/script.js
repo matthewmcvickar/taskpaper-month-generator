@@ -6,6 +6,7 @@ $(function() {
       monthFields     = $('input[name="month"]'),
       itemsField      = $('#items'),
       taskpaperMonth  = $('#taskpaper-month'),
+      emptyButton     = $('#empty-button'),
       year,
       month,
       items;
@@ -162,9 +163,9 @@ $(function() {
     history.pushState({}, '', cleanURL);
 
     // Save values to localStorage.
-    localStorage.setItem('year',  selectedYear.val()  );
-    localStorage.setItem('month', selectedMonth.val() );
-    localStorage.setItem('items', itemsField.val()    );
+    localStorage.setItem('year',  selectedYear.val());
+    localStorage.setItem('month', selectedMonth.val());
+    localStorage.setItem('items', itemsField.val());
   }
 
 
@@ -191,12 +192,20 @@ $(function() {
   // Regenerate TaskPaper month on subsequent updates.
   yearFields.on('change', generateTaskPaperMonth);
   monthFields.on('change', generateTaskPaperMonth);
-  itemsField.keyup($.debounce(250, generateTaskPaperMonth));
+  itemsField.on('keyup', $.debounce(250, generateTaskPaperMonth));
+  itemsField.on('keyup', $.debounce(250, checkForEmptyItemsField));
 
 
   // Recall default task list.
   $('#load-example-tasks-button').click(function() {
-    $('#confirm-recall-of-defaults').fadeIn('fast');
+    // If it's already empty, just load the tasks and don't ask.
+    if (itemsField.val().trim() !== '') {
+      $('#confirm-recall-of-defaults').fadeIn('fast');
+      $('#confirm-empty').fadeOut('fast');
+    } else {
+      itemsField.val(defaultTaskList);
+      emptyButton.fadeIn('fast');
+    }
   });
 
   $('#do-not-recall').click(function() {
@@ -205,8 +214,34 @@ $(function() {
 
   $('#do-recall').click(function() {
     $('#confirm-recall-of-defaults').fadeOut('fast');
+    emptyButton.fadeIn('fast');
     itemsField.val(defaultTaskList);
   });
+
+
+  // Empty items field.
+  emptyButton.click(function() {
+    $('#confirm-empty').fadeIn('fast');
+    $('#confirm-recall-of-defaults').fadeOut('fast');
+  });
+
+  $('#do-not-empty').click(function() {
+    $('#confirm-empty').fadeOut('fast');
+  });
+
+  $('#do-empty').click(function() {
+    $('#confirm-empty').fadeOut('fast');
+    itemsField.val('');
+    emptyButton.fadeOut('fast');
+  });
+
+  // If items field is empty, don't show the 'Empty' button.
+  function checkForEmptyItemsField() {
+    if (itemsField.val().trim() !== '')
+      emptyButton.fadeIn('fast');
+    else
+      emptyButton.fadeOut('fast');
+  }
 
 
   // ZeroClipboard

@@ -57,7 +57,7 @@ To generate an empty month, click the **Empty** button above the editor.
 - [jQuery](http://jquery.com/)
 - [jQuery Throttle/Debounce by Ben Alman](http://benalman.com/projects/jquery-throttle-debounce-plugin/)
 - [ZeroClipboard](http://zeroclipboard.org/)
-- [Clipboard icon by Andrew Onorato](http://thenounproject.com/term/clipboard/17413/)
+- [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)
 - [Erik Meyer's Reset](http://meyerweb.com/eric/tools/css/reset/)
 - [SASS](http://sass-lang.com/), JavaScript, and HTML5
 - [SublimeText](http://www.sublimetext.com/), [CodeKit](https://incident57.com/codekit/), [Google Chrome](https://www.google.com/chrome)
