@@ -1,10 +1,10 @@
-# [TaskPaper Month Generator](http://matthewmcvickar.github.io/taskpaper-month-generator)
+# TaskPaper Month Generator
+
+**[matthewmcvickar.github.io/taskpaper-month-generator](http://matthewmcvickar.github.io/taskpaper-month-generator)**
 
 Given a list of tasks, generates a list of days and tasks for a specified month that can be pasted into TaskPaper for a monthly schedule.
 
 For use with [Taskpaper Tiles](https://github.com/matthewmcvickar/taskpapertiles), my [TaskPaper](http://www.hogbaysoftware.com/products/taskpaper)-based productivity framework.
-
-Clone or [download](https://github.com/matthewmcvickar/taskpaper-month-generator/archive/master.zip) and run yourself, or visit **[matthewmcvickar.github.io/taskpaper-month-generator](http://matthewmcvickar.github.io/taskpaper-month-generator)** to use this tool.
 
 
 ## Instructions
