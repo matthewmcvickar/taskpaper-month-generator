@@ -19,6 +19,29 @@ $blue: #0DA1FF
   background: gray
   color: white
 
+button
+  background-image: linear-gradient(180deg, #fafafa, #eee)
+  border: 1px solid #ccc
+  border-radius: 3px
+  color: #aaa
+  cursor: pointer
+  font-family: "Helvetica Neue", sans-serif
+  font-size: 12px
+  margin: 0
+  padding: 6px 8px
+  text-align: center
+  outline: 0
+
+  &:hover
+    background: linear-gradient(180deg, #eee, #ddd)
+    border: 1px solid #888
+    color: #666
+
+  &:active
+    background: linear-gradient(180deg, #ddd, #eee)
+    color: #666
+
+
 
 // Layout
 
@@ -78,6 +101,8 @@ textarea
 
 header
   font-size: 48px
+  font-weight: 600
+  letter-spacing: -1px
   margin: .5em 0
   text-align: center
 
@@ -125,7 +150,7 @@ header
   h2
     font-weight: 600
 
-  p
+  p.directions
     color: #aaa
     font-size: 12px
     margin: 1em 0
@@ -138,6 +163,42 @@ header
       font-family: Monaco, Courier, monospace
       font-size: 90%
       margin: 0 .25em
+
+  #load-example-tasks-button
+    cursor: pointer
+    text-decoration: underline
+
+    &:hover
+      color: $blue
+
+  #confirm-recall-of-defaults
+    background: salmon*1.5
+    border: 1px solid salmon*1.1
+    border-radius: 3px
+    box-shadow: 0 0 15px rgba(black, .25)
+    color: #333
+    display: none
+    padding: .75em
+    position: absolute
+    top: 77px
+    right: 25px
+    z-index: 2
+    width: 200px
+
+    p
+      font-size: 14px
+      line-height: 1.25
+      margin-bottom: .75em
+
+    button#do-recall
+      border-color: #888
+      color: #666
+      float: right
+      font-weight: 600
+      padding-top: 5px
+
+    button#do-not-recall
+      text-transform: uppercase
 
   textarea
     border-radius: 3px
@@ -163,19 +224,12 @@ header
   padding: 1em
 
   #copy-button
-    background-image: linear-gradient(180deg, #fafafa, #eee)
-    border: 1px solid #ccc
-    border-radius: 3px
-    color: #aaa
-    cursor: pointer
-    font-family: "Helvetica Neue", sans-serif
     font-size: 12px
     padding: 2px 2px 2px 6px
     text-align: left
     position: absolute
-    top: 33px
-    right: 15px
-    outline: 0
+    top: 35px
+    right: 16px
 
     img
       opacity: .5
@@ -185,15 +239,15 @@ header
 
     &.zeroclipboard-is-hover
       background: linear-gradient(180deg, #eee, #ddd)
-      border: 1px solid #333
-      color: #333
+      border: 1px solid #888
+      color: #666
 
       img
         opacity: 1
 
     &.zeroclipboard-is-active
       background: linear-gradient(180deg, #ddd, #eee)
-      color: #333
+      color: #666
 
   textarea
     background: #f4f4f4

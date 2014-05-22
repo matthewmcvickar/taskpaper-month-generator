@@ -1,7 +1,7 @@
 $(function() {
 
   // Initialize defaults and variables.
-  var defaultTaskList = '1\nto-do item\n\n14\nappointment reminder\n\tdetails of appointment\n\n29\ntask\nanother task\n\ta note for this task\n\tanother note',
+  var defaultTaskList = '1\nto-do item\n\n14\nanother task\n\tnotes\n\n29\ntask\nyet another task\n\tnotes and details\n\tanother note',
       yearFields      = $('input[name="year"]'),
       monthFields     = $('input[name="month"]'),
       itemsField      = $('#items'),
@@ -194,6 +194,21 @@ $(function() {
   itemsField.keyup($.debounce(250, generateTaskPaperMonth));
 
 
+  // Recall default task list.
+  $('#load-example-tasks-button').click(function() {
+    $('#confirm-recall-of-defaults').fadeIn('fast');
+  });
+
+  $('#do-not-recall').click(function() {
+    $('#confirm-recall-of-defaults').fadeOut('fast');
+  });
+
+  $('#do-recall').click(function() {
+    $('#confirm-recall-of-defaults').fadeOut('fast');
+    itemsField.val(defaultTaskList);
+  });
+
+
   // ZeroClipboard
   // https://github.com/zeroclipboard/zeroclipboard
   // Flash/JS button to copy the generated TaskPaper month.
@@ -202,13 +217,8 @@ $(function() {
   client.on('load', function(client) {
     client.on('datarequested', function(client) {
       client.setText(taskpaperMonth.val());
-    } );
-
-    client.on('complete', function(client, data) {
-      console.log("Copied text to clipboard: " + data.text );
-    } );
-  } );
-
+    });
+  });
 
 
   // Splice a value into a string at a given index.

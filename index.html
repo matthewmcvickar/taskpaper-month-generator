@@ -51,7 +51,6 @@ items as specified in the plain-text hierarchy below.
     </div>
 
     <div id="years">
-      <!-- Current and next year filled from JS. -->
       <input type="radio" name="year" id="year-this" value="this">
       <input type="radio" name="year" id="year-next" value="next">
     </div>
@@ -61,11 +60,15 @@ items as specified in the plain-text hierarchy below.
     <div class="input">
 
       <h2>Monthly Tasks</h2>
-      <p class="directions">Follow the example. <kbd>Tab</kbd> key works. Stored for next time.</p>
+      <p class="directions">Follow <span id="load-example-tasks-button">the example</span>. <kbd>Tab</kbd> key works. Stored for next time.</p>
 
-      <textarea tabindex="1" id="items">
-        <!-- Filled from localStorage or defaults. -->
-      </textarea>
+      <div id="confirm-recall-of-defaults">
+        <p>Reloading defaults will erase whatever you&rsquo;ve added here.</p>
+        <button id="do-not-recall" title="Cancel">Cancel</button>
+        <button id="do-recall" title="OK">OK</button>
+      </div>
+
+      <textarea tabindex="1" id="items"></textarea>
     </div>
 
     <div class="output">
