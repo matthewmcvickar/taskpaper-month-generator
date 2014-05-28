@@ -1,9 +1,5 @@
 $ ->
 
-  # Quicker console log.
-  log = console.log.bind(console)
-
-
   # Splice a value into a string at a given index.
   # Adapted from: http:#stackoverflow.com/a/21350614/187051
   spliceText = (string, index, charactersToReplace, stringToAdd) ->
@@ -11,25 +7,24 @@ $ ->
 
 
   # Grab parameters from URL.
-  # Adapted from code by Justin Falcone (justinfalcone.com, @modernserf).
   getLocationParameters = () ->
     params = {}
     search = window.location.search
 
-    # return empty hash if no search
+    # Return empty if there are no parameters.
     return params unless search?.length
 
-    # split into key=value pairs
+    # Split the parameters into key-value pairs.
     pairs = search.slice(1).split('&')
 
-    # attach key value pairs to params
+    # Attach key-value pairs to parameters.
     processPair = (pair)->
       [key, value] = pair?.split('=')
 
-      # handle malformed params
+      # Handle malformed parameters.
       return unless value
 
-      # convert to native types
+      # Convert to native types
       params[key] = switch
         when value is "true"         then true
         when value is "false"        then false
@@ -59,7 +54,7 @@ $ ->
 
   # Replace saved values with parameters, if they exist.
   locationParameters = getLocationParameters()
-  year  = locationParameters['year'] if locationParameters['year']?
+  year = locationParameters['year'] if locationParameters['year']?
   month = locationParameters['month'] if locationParameters['month']?
 
   # Initial setup:
