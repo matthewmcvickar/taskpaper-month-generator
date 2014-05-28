@@ -65,5 +65,4 @@ To generate an empty month, click the **Empty** button in the editor.
 
 ## Thanks
 
-- [Justin Falcone](http://justinfalcone.com)
-- [Cody Robbins](http://twitter.com/codyrobbins)
+- [Justin Falcone](http://github.com/modernserf) and [Cody Robbins](http://github.com/codyrobbins) for code review
