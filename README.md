@@ -51,12 +51,15 @@ To generate an empty month, click the **Empty** button in the editor.
 
 ## Credits
 
+- [CoffeeScript](http://coffeescript.org/)
+- [jQuery](http://jquery.com/)
 - [jQuery Throttle/Debounce](http://benalman.com/projects/jquery-throttle-debounce-plugin/)
 - [ZeroClipboard](http://zeroclipboard.org/)
+
 - [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)
-- [Erik Meyer's Reset](http://meyerweb.com/eric/tools/css/reset/)
-- [jQuery](http://jquery.com/)
+- [Erik Meyer's CSS Reset](http://meyerweb.com/eric/tools/css/reset/)
 - [SASS](http://sass-lang.com/)
+
 - [SublimeText](http://www.sublimetext.com/)
 - [CodeKit](https://incident57.com/codekit/)
 - [Chrome Developer Tools](https://developer.chrome.com/devtools)
