@@ -7,7 +7,7 @@ $ ->
 
 
   # Grab parameters from URL.
-  getLocationParameters = () ->
+  getLocationParameters = ->
     params = {}
     search = window.location.search
 
@@ -97,7 +97,7 @@ $ ->
   #    Populate the form from the loaded data
   #    generate the TaskPaper month from the items field, and
   #    store the results in localStorage.
-  do generateTaskPaperMonth = () ->
+  do generateTaskPaperMonth = ->
 
     # Read the form data; prepare to generate a month.
     selectedYear   = $('input[name="year"]:checked')
@@ -216,7 +216,7 @@ $ ->
   # itemsField.on 'keyup', $.debounce(250, generateTaskPaperMonth)
   # itemsField.on 'keyup', $.debounce(250, checkForEmptyItemsField)
   itemsField.on 'keyup', generateTaskPaperMonth
-  itemsField.on 'keyup', () ->
+  itemsField.on 'keyup', ->
     if itemsField.val().trim() isnt ''
       emptyButton.fadeIn('fast')
     else
@@ -275,10 +275,10 @@ $ ->
     client.on 'datarequested', (client) ->
       client.setText($('#taskpaper-month').val())
 
-  client.on 'noFlash', () ->
+  client.on 'noFlash', ->
     $('#copy-button').hide()
     console.error('No Flash installed. Hiding the \'Copy\' button.')
 
-  client.on 'wrongFlash', () ->
+  client.on 'wrongFlash', ->
     $('#copy-button').hide()
     console.error('Wrong Flash installed. Hiding the \'Copy\' button.')
