@@ -154,11 +154,16 @@ $ ->
     localStorage.setItem('items', itemsField.val())
 
 
+  # Regenerate TaskPaper month on subsequent updates.
+  $('input[name="month"]').on 'change', generateTaskPaperMonth
+  $('input[name="year"]').on 'change', generateTaskPaperMonth
+  itemsField.on 'keyup', $.debounce(250, generateTaskPaperMonth)
+
+
   # Make the Tab key insert an actual tab in the textarea.
   itemsField.keydown (key) ->
-    cursorPosition  = itemsField.get(0).selectionStart
+    cursorPosition = itemsField.get(0).selectionStart
 
-    # If it's the Tab key, insert two spcaes instead.
     if key.keyCode == 9
       key.preventDefault()
 
@@ -171,96 +176,93 @@ $ ->
       false
 
 
-  # Regenerate TaskPaper month on subsequent updates.
-  $('input[name="month"]').on 'change', generateTaskPaperMonth
-  $('input[name="year"]').on 'change', generateTaskPaperMonth
-  # itemsField.on 'keyup', $.debounce(250, generateTaskPaperMonth)
-  # itemsField.on 'keyup', $.debounce(250, checkForEmptyItemsField)
-  itemsField.on 'keyup', generateTaskPaperMonth
-  itemsField.on 'keyup', ->
-    if itemsField.val().trim() isnt ''
-      fadeInEmptyItemsButton()
-    else
-      fadeOutEmptyItemsButton()
+  # Buttons and dialog behavior.
+  emptyItemsButton           = $('#empty-items-button')
+  doEmptyButton              = $('#do-empty')
+  doNotEmptyButton           = $('#do-not-empty')
 
+  showEmptyItemsButton       = -> emptyItemsButton.fadeIn('fast')
+  hideEmptyItemsButton       = -> emptyItemsButton.fadeOut('fast')
+  showEmptyItemsDialog       = -> $('#empty-items-dialog').fadeIn('fast')
+  hideEmptyItemsDialog       = -> $('#empty-items-dialog').fadeOut('fast')
 
+  restoreDefaultItemsButton  = $('#restore-default-items-button')
+  doRestoreButton            = $('#do-restore')
+  doNotRestoreButton         = $('#do-not-restore')
 
-  emptyItemsButton              = $('#empty-items-button')
-  emptyItemsDialog              = $('#empty-items-dialog')
-  doEmptyButton                 = $('#do-empty')
-  doNotEmptyButton              = $('#do-not-empty')
+  showRestoreDefaultsDialog  = -> $('#restore-default-items-dialog').fadeIn('fast')
+  hideRestoreDefaultsDialog  = -> $('#restore-default-items-dialog').fadeOut('fast')
 
-  fadeInEmptyItemsButton        = -> emptyItemsButton.fadeIn('fast')
-  fadeOutEmptyItemsButton       = -> emptyItemsButton.fadeOut('fast')
-  fadeInEmptyItemsConfirmation  = -> emptyItemsDialog.fadeIn('fast')
-  fadeOutEmptyItemsConfirmation = -> emptyItemsDialog.fadeOut('fast')
-
-  restoreDefaultItemsButton     = $('#restore-default-items-button')
-  restoreDefaultItemsDialog     = $('#restore-default-items-dialog')
-  doRestoreButton               = $('#do-restore')
-  doNotRestoreButton            = $('#do-not-restore')
-
-  fadeInRestoreDefaultsButton   = -> restoreDefaultItemsDialog.fadeIn('fast')
-  fadeOutRestoreDefaultsButton  = -> restoreDefaultItemsDialog.fadeOut('fast')
-
-  setItemsFieldToDefaults = ->
+  restoreDefaultsToItemsField    = ->
     itemsField.val(defaultItemList)
     focusOnItemsField()
 
   # Restore default item list.
   restoreDefaultItemsButton.click ->
+
     # If it's already empty, just load the items and don't ask.
     if itemsField.val().trim() isnt ''
-      fadeInRestoreDefaultsButton()
-      fadeOutEmptyItemsConfirmation()
-      focusOnItemsField()
-    # Otherwise, hide the 'Empty' button, restore defaults, and focus on the field.
-    else
-      fadeInEmptyItemsButton()
-      setItemsFieldToDefaults()
+      showRestoreDefaultsDialog()
+      hideEmptyItemsDialog()
       focusOnItemsField()
 
+    # Otherwise, hide the 'Empty' button, restore defaults, and focus on the field.
+    else
+      showEmptyItemsButton()
+      restoreDefaultsToItemsField()
+      focusOnItemsField()
+
+  # Hide the Restore Defaults
   doNotRestoreButton.click ->
-    fadeOutRestoreDefaultsButton()
+    hideRestoreDefaultsDialog()
     focusOnItemsField()
 
   doRestoreButton.click ->
-    fadeOutRestoreDefaultsButton()
-    fadeInEmptyItemsButton()
-    setItemsFieldToDefaults()
+    hideRestoreDefaultsDialog()
+    showEmptyItemsButton()
+    restoreDefaultsToItemsField()
     focusOnItemsField()
 
   # Empty items field.
   emptyItemsButton.click ->
-    fadeOutRestoreDefaultsButton()
-    fadeInEmptyItemsConfirmation()
+    hideRestoreDefaultsDialog()
+    showEmptyItemsDialog()
     focusOnItemsField()
 
   doNotEmptyButton.click ->
-    fadeOutEmptyItemsConfirmation()
+    hideEmptyItemsDialog()
     focusOnItemsField()
 
   doEmptyButton.click ->
-    fadeOutEmptyItemsConfirmation()
-    fadeOutEmptyItemsButton()
+    hideEmptyItemsDialog()
+    hideEmptyItemsButton()
     itemsField.val('')
     focusOnItemsField()
+
+  # Periodically check if the items field is empty. If it is, hide the 'Empty' button.
+  itemsField.on 'keyup', ->
+    if itemsField.val().trim() isnt ''
+      showEmptyItemsButton()
+    else
+      hideEmptyItemsButton()
 
 
   # ZeroClipboard
   # https:#github.com/zeroclipboard/zeroclipboard
   # Flash/JS button to copy the generated TaskPaper month.
+  copyButton = $('#copy-button')
+
   ZeroClipboard.config({ moviePath: 'js/vendor/ZeroClipboard.swf' })
-  client = new ZeroClipboard($('#copy-button'))
+  client = new ZeroClipboard(copyButton)
 
   client.on 'load', (client) ->
     client.on 'datarequested', (client) ->
       client.setText($('#taskpaper-month').val())
 
   client.on 'noFlash', ->
-    $('#copy-button').hide()
+    copyButton.hide()
     console.error('No Flash installed. Hiding the \'Copy\' button.')
 
   client.on 'wrongFlash', ->
-    $('#copy-button').hide()
-    console.error('Wrong Flash installed. Hiding the \'Copy\' button.')
+    copyButton.hide()
+    console.error('Wrong version of Flash installed. Hiding the \'Copy\' button.')
