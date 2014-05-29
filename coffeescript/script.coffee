@@ -212,7 +212,6 @@ $ ->
       restoreDefaultsToItemsField()
       focusOnItemsField()
 
-  # Hide the Restore Defaults
   doNotRestoreButton.click ->
     hideRestoreDefaultsDialog()
     focusOnItemsField()
@@ -223,7 +222,7 @@ $ ->
     restoreDefaultsToItemsField()
     focusOnItemsField()
 
-  # Empty items field.
+  # Empty the items field.
   emptyItemsButton.click ->
     hideRestoreDefaultsDialog()
     showEmptyItemsDialog()
