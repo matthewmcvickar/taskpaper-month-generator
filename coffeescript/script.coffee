@@ -1,43 +1,5 @@
 $ ->
 
-  # Splice a value into a string at a given index.
-  # Adapted from: http:#stackoverflow.com/a/21350614/187051
-  spliceText = (string, index, charactersToReplace, stringToAdd) ->
-    return string.slice(0, index) + stringToAdd + string.slice(index + charactersToReplace)
-
-
-  # Grab parameters from URL.
-  getLocationParameters = ->
-    params = {}
-    search = window.location.search
-
-    # Return empty if there are no parameters.
-    return params unless search?.length
-
-    # Split the parameters into key-value pairs.
-    pairs = search.slice(1).split('&')
-
-    # Attach key-value pairs to parameters.
-    processPair = (pair)->
-      [key, value] = pair?.split('=')
-
-      # Handle malformed parameters.
-      return unless value
-
-      # Convert to native types
-      params[key] = switch
-        when value is "true"         then true
-        when value is "false"        then false
-        when !isNaN(Number(value))   then Number(value)
-        else decodeURIComponent(value).replace(/\+/g, ' ')
-
-      return
-
-    processPair(pair) for pair in pairs
-
-    return params
-
-
   # Load the year, month, and items values from localStorage,
   # or get the current year and month and the default item set.
   defaultTaskList = '1\nto-do item\n\n14\nanother task\n\tnotes\n\n29\ntask\nyet another task\n\tnotes and details\n\tanother note'
@@ -52,10 +14,11 @@ $ ->
     year  = today.getFullYear()
     month = today.getMonth()
 
-  # Replace saved values with parameters, if they exist.
-  locationParameters = getLocationParameters()
-  year = locationParameters['year'] if locationParameters['year']?
-  month = locationParameters['month'] if locationParameters['month']?
+  # Replace saved values with URL parameters, if they exist.
+  url = $.url()
+  console.log(url.param('year'))
+  year = url.param('year') if url.param('year')?
+  month = url.param('month') if url.param('month')?
 
   # Initial setup:
   itemsField = $('#items')
@@ -191,6 +154,11 @@ $ ->
     localStorage.setItem('month', selectedMonth.val())
     localStorage.setItem('items', itemsField.val())
 
+
+  # Splice a value into a string at a given index.
+  # Adapted from: http:#stackoverflow.com/a/21350614/187051
+  spliceText = (string, index, charactersToReplace, stringToAdd) ->
+    return string.slice(0, index) + stringToAdd + string.slice(index + charactersToReplace)
 
   # Make the Tab key insert an actual tab in the textarea.
   itemsField.keydown (key) ->
