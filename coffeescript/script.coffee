@@ -2,7 +2,7 @@ $ ->
 
   # Load the year, month, and items values from localStorage,
   # or get the current year and month and the default item set.
-  defaultTaskList = '1\nto-do item\n\n14\nanother task\n\tnotes\n\n29\ntask\nyet another task\n\tnotes and details\n\tanother note'
+  defaultItemList = '1\nto-do item\n\n14\nanother task\n\tnotes\n\n29\ntask\nyet another task\n\tnotes and details\n\tanother note'
 
   if localStorage.getItem('items')
     items = localStorage.getItem('items')
@@ -10,18 +10,19 @@ $ ->
     month = localStorage.getItem('month')
   else
     today = new Date()
-    items = defaultTaskList
+    items = defaultItemList
     year  = today.getFullYear()
     month = today.getMonth()
 
   # Replace saved values with URL parameters, if they exist.
   url = $.url()
-  console.log(url.param('year'))
   year = url.param('year') if url.param('year')?
   month = url.param('month') if url.param('month')?
 
+
   # Initial setup:
   itemsField = $('#items')
+  focusOnItemsField = -> itemsField.focus()
 
   # 1. Populate year buttons with current and next year.
   thisYear = new Date().getFullYear()
@@ -53,7 +54,7 @@ $ ->
   itemsField.val(items)
 
   # 6. Give items field focus.
-  itemsField.focus()
+  focusOnItemsField()
 
   # 7. Generate TaskPaper month and set up regenerator function.
   #
@@ -72,8 +73,7 @@ $ ->
 
     # Build an array of items from the contents of the textarea.
     # Split the textarea by digits followed by newlines.
-    itemsText = $('#items').val()
-    itemsArray = itemsText.split(/(\d+):?\n/m)
+    itemsArray = itemsField.val().split(/(\d+):?\n/m)
 
     # Hack off the first (empty) array item.
     itemsArray.shift()
@@ -112,7 +112,7 @@ $ ->
       # If this day contains items, print them.
       if items[dayNumber]
 
-        $.each(items[dayNumber], (key, value) ->
+        $.each items[dayNumber], (key, value) ->
 
           # If the line starts with two spaces or a tab character, make it a note.
           if value.substring(0, 2) == '  ' or value.substring(0, 1) == '\t'
@@ -126,9 +126,8 @@ $ ->
           # Otherwise, make it a todo.
           else
             generatedMonth += '\n\t- ' + value
-        )
 
-      # If we're on the last day of the month, generate a link back here!
+      # If we're at the last day of the month, generate a link back here!
       nextMonth = {}
 
       # If the month is December, start over with January.
@@ -145,7 +144,7 @@ $ ->
     # Print generated TaskPaper month to the screen.
     $('#taskpaper-month').val(generatedMonth)
 
-    # Remove parameters from the URL, since we've changed the year and month on pageload.                               # Remember, zero-indexed month.
+    # Remove parameters from the URL, since we've changed the year and month on pageload.                             # Remember, zero-indexed month.
     cleanURL  = window.location.href.substring(0, window.location.href.indexOf('?')) + '?year=' + year + '&month=' + (Number(month) + 1)
     history.pushState({}, '', cleanURL)
 
@@ -180,51 +179,72 @@ $ ->
   itemsField.on 'keyup', generateTaskPaperMonth
   itemsField.on 'keyup', ->
     if itemsField.val().trim() isnt ''
-      emptyButton.fadeIn('fast')
+      fadeInEmptyItemsButton()
     else
-      emptyButton.fadeOut('fast')
+      fadeOutEmptyItemsButton()
 
 
-  # Recall default task list.
-  $('#load-example-tasks-button').click ->
-    # If it's already empty, just load the tasks and don't ask.
+
+  emptyItemsButton              = $('#empty-items-button')
+  emptyItemsDialog              = $('#empty-items-dialog')
+  doEmptyButton                 = $('#do-empty')
+  doNotEmptyButton              = $('#do-not-empty')
+
+  fadeInEmptyItemsButton        = -> emptyItemsButton.fadeIn('fast')
+  fadeOutEmptyItemsButton       = -> emptyItemsButton.fadeOut('fast')
+  fadeInEmptyItemsConfirmation  = -> emptyItemsDialog.fadeIn('fast')
+  fadeOutEmptyItemsConfirmation = -> emptyItemsDialog.fadeOut('fast')
+
+  restoreDefaultItemsButton     = $('#restore-default-items-button')
+  restoreDefaultItemsDialog     = $('#restore-default-items-dialog')
+  doRestoreButton               = $('#do-restore')
+  doNotRestoreButton            = $('#do-not-restore')
+
+  fadeInRestoreDefaultsButton   = -> restoreDefaultItemsDialog.fadeIn('fast')
+  fadeOutRestoreDefaultsButton  = -> restoreDefaultItemsDialog.fadeOut('fast')
+
+  setItemsFieldToDefaults = ->
+    itemsField.val(defaultItemList)
+    focusOnItemsField()
+
+  # Restore default item list.
+  restoreDefaultItemsButton.click ->
+    # If it's already empty, just load the items and don't ask.
     if itemsField.val().trim() isnt ''
-      $('#confirm-recall-of-defaults').fadeIn('fast')
-      $('#confirm-empty').fadeOut('fast')
-      itemsField.focus()
+      fadeInRestoreDefaultsButton()
+      fadeOutEmptyItemsConfirmation()
+      focusOnItemsField()
+    # Otherwise, hide the 'Empty' button, restore defaults, and focus on the field.
     else
-      emptyButton.fadeIn('fast')
-      itemsField.val(defaultTaskList)
-      itemsField.focus()
+      fadeInEmptyItemsButton()
+      setItemsFieldToDefaults()
+      focusOnItemsField()
 
-  $('#do-not-recall').click ->
-    $('#confirm-recall-of-defaults').fadeOut('fast')
-    itemsField.focus()
+  doNotRestoreButton.click ->
+    fadeOutRestoreDefaultsButton()
+    focusOnItemsField()
 
-  $('#do-recall').click ->
-    $('#confirm-recall-of-defaults').fadeOut('fast')
-    emptyButton.fadeIn('fast')
-    itemsField.val(defaultTaskList)
-    itemsField.focus()
-
+  doRestoreButton.click ->
+    fadeOutRestoreDefaultsButton()
+    fadeInEmptyItemsButton()
+    setItemsFieldToDefaults()
+    focusOnItemsField()
 
   # Empty items field.
-  emptyButton = $('#empty-button')
+  emptyItemsButton.click ->
+    fadeOutRestoreDefaultsButton()
+    fadeInEmptyItemsConfirmation()
+    focusOnItemsField()
 
-  emptyButton.click ->
-    $('#confirm-empty').fadeIn('fast')
-    $('#confirm-recall-of-defaults').fadeOut('fast')
-    itemsField.focus()
+  doNotEmptyButton.click ->
+    fadeOutEmptyItemsConfirmation()
+    focusOnItemsField()
 
-  $('#do-not-empty').click ->
-    $('#confirm-empty').fadeOut('fast')
-    itemsField.focus()
-
-  $('#do-empty').click ->
-    $('#confirm-empty').fadeOut('fast')
+  doEmptyButton.click ->
+    fadeOutEmptyItemsConfirmation()
+    fadeOutEmptyItemsButton()
     itemsField.val('')
-    emptyButton.fadeOut('fast')
-    itemsField.focus()
+    focusOnItemsField()
 
 
   # ZeroClipboard
