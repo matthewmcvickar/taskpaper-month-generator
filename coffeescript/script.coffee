@@ -155,22 +155,16 @@ $ ->
     localStorage.setItem('items', itemsField.val())
 
 
-  # Splice a value into a string at a given index.
-  # Adapted from: http:#stackoverflow.com/a/21350614/187051
-  spliceText = (string, index, charactersToReplace, stringToAdd) ->
-    return string.slice(0, index) + stringToAdd + string.slice(index + charactersToReplace)
-
   # Make the Tab key insert an actual tab in the textarea.
   itemsField.keydown (key) ->
     cursorPosition  = itemsField.get(0).selectionStart
-    itemsFieldValue = itemsField.val()
 
     # If it's the Tab key, insert two spcaes instead.
     if key.keyCode == 9
       key.preventDefault()
 
       # Splice the tab character in at the cursor position.
-      itemsField.val(spliceText(itemsFieldValue, cursorPosition, 0, '\t'))
+      itemsField.val(itemsField.val().slice(0, cursorPosition) + '\t' + itemsField.val().slice(cursorPosition))
 
       # Move the cursor position two characters ahead (after the tab).
       itemsField.get(0).setSelectionRange(cursorPosition + 1, cursorPosition + 1)
