@@ -1,0 +1,120 @@
+<!doctype html>
+
+<!--
+
+# Taskpaper Month Generator
+
+http://matthewmcvickar.github.io/taskpaper-month-generator
+
+Source: https://github.com/matthewmcvickar/taskpaper-month-generator
+
+Part of the Taskpaper Tiles system by Matthew McVickar
+https://github.com/matthewmcvickar/taskpapertiles
+
+Creates a month list for the requested month and year (or the current
+month and year, if unspecified) in TaskPaper, populating days with
+items as specified in the plain-text hierarchy below.
+
+-->
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TaskPaper Month Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <header>
+    <h1><a href="./">TaskPaper Month Generator</a></h1>
+  </header>
+
+  <div class="choose-month-and-year">
+    <div id="months">
+      <input type="radio" name="month" id="month-1" value="1"><label for="month-1">Jan</label>
+      <input type="radio" name="month" id="month-2" value="2"><label for="month-2">Feb</label>
+      <input type="radio" name="month" id="month-3" value="3"><label for="month-3">Mar</label>
+      <input type="radio" name="month" id="month-4" value="4"><label for="month-4">Apr</label>
+      <input type="radio" name="month" id="month-5" value="5"><label for="month-5">May</label>
+      <input type="radio" name="month" id="month-6" value="6"><label for="month-6">Jun</label>
+      <input type="radio" name="month" id="month-7" value="7"><label for="month-7">Jul</label>
+      <input type="radio" name="month" id="month-8" value="8"><label for="month-8">Aug</label>
+      <input type="radio" name="month" id="month-9" value="9"><label for="month-9">Sep</label>
+      <input type="radio" name="month" id="month-10" value="10"><label for="month-10">Oct</label>
+      <input type="radio" name="month" id="month-11" value="11"><label for="month-11">Nov</label>
+      <input type="radio" name="month" id="month-12" value="12"><label for="month-12">Dec</label>
+    </div>
+
+    <div id="years">
+      <input type="radio" name="year" id="year-this" value="this">
+      <input type="radio" name="year" id="year-next" value="next">
+    </div>
+  </div>
+
+  <div class="items-field-and-generated-month">
+    <div class="input">
+
+      <h2>Monthly Tasks</h2>
+      <p class="directions">Follow <span id="restore-default-items-button">the example</span>. <kbd>Tab</kbd> works. Auto-saved.</p>
+
+      <div id="restore-default-items-dialog" class="dialog">
+        <p>Reloading defaults will erase whatever you&rsquo;ve added here.</p>
+        <button id="do-not-restore" class="no"  title="Cancel">Cancel</button>
+        <button id="do-restore"     class="yes" title="OK">OK</button>
+      </div>
+
+      <button id="empty-items-button" title="Empty">Empty<img src="img/trash.svg"></button>
+      <div id="empty-items-dialog" class="dialog">
+        <p>Erase everything?</p>
+        <button id="do-not-empty" class="no"  title="Cancel">Cancel</button>
+        <button id="do-empty"     class="yes" title="OK">OK</button>
+      </div>
+
+      <textarea tabindex="1" id="items"></textarea>
+    </div>
+
+    <div class="output">
+      <h2>Your TaskPaper Month</h2>
+      <p class="directions">Updated live. Copy and paste into TaskPaper.</p>
+
+      <button id="copy-button" data-clipboard-text="Copy" title="Click to copy.">Copy<img src="img/clipboard.svg"></button>
+
+      <textarea id="taskpaper-month" readonly onclick="this.select();"></textarea>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Use simple syntax to generate a TaskPaper-formatted month of tasks. By <a href="http://matthewmcvickar.com">Matthew McVickar</a>. <a href="https://github.com/matthewmcvickar/taskpaper-month-generator">Source on GitHub.</a><br>
+      For use with <a href="https://github.com/matthewmcvickar/taskpapertiles">TaskPaper Tiles</a>, a <a href="http://www.hogbaysoftware.com/products/taskpaper">TaskPaper</a>-based productivity framework.
+    </p>
+  </footer>
+
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.0.min.js"><\/script>')</script>
+
+<script src="js/vendor/purl.js"></script>
+<script src="js/vendor/ZeroClipboard.min.js"></script>
+<script src="js/vendor/jquery.ba-throttle-debounce.min.js"></script>
+
+<script src="js/script.js"></script>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-2466767-6', 'matthewmcvickar.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
