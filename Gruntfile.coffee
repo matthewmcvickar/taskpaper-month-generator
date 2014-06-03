@@ -1,5 +1,7 @@
 module.exports = (grunt) ->
 
+  require('load-grunt-tasks')(grunt)
+
   grunt.initConfig {
     pkg: grunt.file.readJSON('package.json')
 
@@ -24,7 +26,7 @@ module.exports = (grunt) ->
           "tmp/css/style.css" : "src/css/style.sass"
 
     autoprefixer:
-      build:
+      single_file:
         src: "tmp/css/style.css"
         dest: "build/css/style.css"
 
@@ -44,19 +46,14 @@ module.exports = (grunt) ->
         files: ["src/css/*.sass"]
         tasks: ["sass:build"]
       autoprefixer:
-        files: ["tmp/css/styles.css"]
-        tasks: ["autoprefixer:build"]
+        files: ["tmp/css/style.css"]
+        tasks: ["autoprefixer:single_file"]
       reload:
         files: ["build/*.html","build/js/script.js"]
         options: {livereload: true}
       livereload:
-        files: ["build/css/styles.css"]
+        files: ["build/css/style.css"]
         options: {livereload: true}
   }
-
-  grunt.loadNpmTasks('grunt-contrib-coffee')
-  grunt.loadNpmTasks('grunt-contrib-uglify')
-  grunt.loadNpmTasks('grunt-contrib-concat')
-  grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask 'default', ['connect', 'watch']
