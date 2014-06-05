@@ -61,6 +61,6 @@ module.exports = (grunt) ->
       src: ['**']
   }
 
-  grunt.registerTask 'setup', ['uglify', 'connect', 'watch']
+  grunt.registerTask 'setup', ['uglify']
   grunt.registerTask 'default', ['connect', 'watch']
   grunt.registerTask 'deploy', ['gh-pages']
