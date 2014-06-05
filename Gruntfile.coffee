@@ -33,8 +33,8 @@ module.exports = (grunt) ->
     connect:
       server:
         options:
-          port: 5000
-          hostname: 'localhost'
+          port: 8764 # phone keypad equivalent of TPMG
+          hostname: '*'
           base: 'build'
           livereload: true
 
