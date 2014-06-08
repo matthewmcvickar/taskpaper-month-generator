@@ -251,7 +251,7 @@ $ ->
   # Flash/JS button to copy the generated TaskPaper month.
   copyButton = $('#copy-button')
 
-  ZeroClipboard.config({ moviePath: 'js/vendor/ZeroClipboard.swf' })
+  ZeroClipboard.config({ moviePath: 'js/lib/ZeroClipboard.swf' })
   client = new ZeroClipboard(copyButton)
 
   client.on 'load', (client) ->
