@@ -9,6 +9,9 @@ module.exports = (grunt) ->
       build:
         files:
           'build/js/script.js' : 'src/js/script.coffee'
+        options:
+          sourceMap: true
+          sourceMapDir: 'build/js/'
 
     uglify:
       build:
@@ -33,7 +36,7 @@ module.exports = (grunt) ->
     connect:
       server:
         options:
-          port: 8764 # phone keypad equivalent of TPMG
+          port: 5000
           hostname: '*'
           base: 'build'
           livereload: true
