@@ -222,7 +222,7 @@ header {
     display: none; }
   .choose-month-and-year label {
     border-radius: 3px;
-    color: #0da1ff;
+    color: #0099ff;
     cursor: pointer;
     display: inline-block;
     margin-right: 0;
@@ -230,7 +230,7 @@ header {
     .choose-month-and-year label:hover {
       background: #eeeeee; }
   .choose-month-and-year input:checked + label {
-    background: #0da1ff;
+    background: #0099ff;
     color: white; }
   .choose-month-and-year input.current-month + label:after,
   .choose-month-and-year input.current-year + label:after {
@@ -251,7 +251,7 @@ header {
     margin-left: -3px;
     border-left: 3px solid transparent;
     border-right: 3px solid transparent;
-    border-bottom: 3px solid #0da1ff; }
+    border-bottom: 3px solid #0099ff; }
 
 .items-field-and-generated-month h2 {
   font-weight: 600; }
@@ -271,7 +271,7 @@ header {
   cursor: pointer;
   text-decoration: underline; }
   .items-field-and-generated-month #restore-default-items-button:hover {
-    color: #0da1ff; }
+    color: #0099ff; }
 .items-field-and-generated-month #empty-items-button {
   font-size: 12px;
   position: absolute;
@@ -293,9 +293,9 @@ header {
     -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); }
     .input textarea:focus {
-      border-color: #0da1ff;
-      -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(13, 161, 255, 0.5);
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(13, 161, 255, 0.5); }
+      border-color: #0099ff;
+      -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(0, 153, 255, 0.5);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(0, 153, 255, 0.5); }
 
 .output {
   padding: 1em; }
