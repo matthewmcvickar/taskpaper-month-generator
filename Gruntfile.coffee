@@ -28,9 +28,6 @@ module.exports = (grunt) ->
       build:
         files:
           '.tmp/js/script.js' : 'src/js/script.coffee'
-        options:
-          sourceMap: true
-          sourceMapDir: 'build/js/'
 
     uglify:
       build:
@@ -49,7 +46,7 @@ module.exports = (grunt) ->
           '.tmp/css/style.css' : 'src/css/style.sass'
 
     autoprefixer:
-      single_file:
+      build:
         src: '.tmp/css/style.css'
         dest: 'build/css/style.css'
 
@@ -64,7 +61,7 @@ module.exports = (grunt) ->
 
     browserSync:
       files:
-        src: ['_site/**/*']
+        src: ['build/**/*']
       options:
         watchTask: true
         server:
@@ -73,18 +70,21 @@ module.exports = (grunt) ->
     watch:
       copy:
         files: ['src/**/*.html']
-        tasks: ['copy']
+        tasks: ['copy:build']
       coffee:
         files: ['src/js/script.coffee']
-        tasks: ['coffee:build']
+        tasks: ['coffee']
+      uglify:
+        files: ['.tmp/js/**/*.js']
+        tasks: ['uglify']
       sass:
         files: ['src/css/*.sass']
-        tasks: ['sass:build']
+        tasks: ['sass']
       autoprefixer:
         files: ['.tmp/css/style.css']
-        tasks: ['autoprefixer:single_file']
+        tasks: ['autoprefixer']
       reload:
-        files: ['build/*.html','build/js/script.js']
+        files: ['build/**/*.{html,js,svg}']
         options: {livereload: true}
       livereload:
         files: ['build/css/style.css']

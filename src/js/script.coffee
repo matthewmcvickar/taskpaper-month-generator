@@ -68,8 +68,10 @@ $ ->
     selectedMonth  = $('input[name="month"]:checked')
     year           = selectedYear.val()
     month          = selectedMonth.val() - 1 # Months are zero-indexed.
-    numberOfDays   = new Date(year, month, 0).getDate() + 1 # Days are also zero-indexed.
+    numberOfDays   = new Date(year, month, 0).getDate()
     generatedMonth = ''
+
+    console.log(numberOfDays)
 
     # Build an array of items from the contents of the textarea.
     # Split the textarea by digits followed by newlines.
