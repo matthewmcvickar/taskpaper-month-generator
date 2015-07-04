@@ -1,14 +1,33 @@
 module.exports = (grunt) ->
 
-  require('load-grunt-tasks')(grunt)
+  # Load all Grunt tasks.
+  require('jit-grunt')(grunt);
 
   grunt.initConfig {
-    pkg: grunt.file.readJSON('package.json')
+
+    clean:
+      files: [
+        'build'
+        '.tmp'
+      ]
+
+    copy:
+      build:
+        expand: true
+        cwd: 'src'
+        src: '**/*.html'
+        dest: 'build'
+      zeroClipboardSWF:
+        expand: true
+        cwd: 'bower_components/zeroclipboard/dist'
+        src: 'ZeroClipboard.swf'
+        dest: 'build/js/'
+
 
     coffee:
       build:
         files:
-          'build/js/script.js' : 'src/js/script.coffee'
+          '.tmp/js/script.js' : 'src/js/script.coffee'
         options:
           sourceMap: true
           sourceMapDir: 'build/js/'
@@ -16,32 +35,45 @@ module.exports = (grunt) ->
     uglify:
       build:
         files:
-          'build/js/lib.js' : [
+          'build/js/lib+script.js' : [
             'bower_components/jquery/dist/jquery.js'
             'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js'
             'bower_components/purl/purl.js'
-            'bower_components/zeroclipboard/ZeroClipboard.js'
+            'bower_components/zeroclipboard/dist/ZeroClipboard.js'
+            '.tmp/js/script.js'
           ]
 
     sass:
       build:
         files:
-          'tmp/css/style.css' : 'src/css/style.sass'
+          '.tmp/css/style.css' : 'src/css/style.sass'
 
     autoprefixer:
       single_file:
-        src: 'tmp/css/style.css'
+        src: '.tmp/css/style.css'
         dest: 'build/css/style.css'
 
-    connect:
-      server:
-        options:
-          port: 5000
-          hostname: '*'
-          base: 'build'
-          livereload: true
+    svgmin:
+      build:
+        files: [
+          expand: true,
+          cwd: 'src/svg',
+          src: ['**/*.svg'],
+          dest: 'build/svg'
+        ]
+
+    browserSync:
+      files:
+        src: ['_site/**/*']
+      options:
+        watchTask: true
+        server:
+          baseDir: 'build'
 
     watch:
+      copy:
+        files: ['src/**/*.html']
+        tasks: ['copy']
       coffee:
         files: ['src/js/script.coffee']
         tasks: ['coffee:build']
@@ -49,7 +81,7 @@ module.exports = (grunt) ->
         files: ['src/css/*.sass']
         tasks: ['sass:build']
       autoprefixer:
-        files: ['tmp/css/style.css']
+        files: ['.tmp/css/style.css']
         tasks: ['autoprefixer:single_file']
       reload:
         files: ['build/*.html','build/js/script.js']
@@ -64,6 +96,22 @@ module.exports = (grunt) ->
       src: ['**']
   }
 
-  grunt.registerTask 'setup', ['uglify']
-  grunt.registerTask 'default', ['connect', 'watch']
-  grunt.registerTask 'deploy', ['gh-pages']
+  grunt.registerTask 'setup', [
+    'clean'
+    'copy'
+    'sass'
+    'autoprefixer'
+    'coffee'
+    'uglify'
+    'svgmin'
+  ]
+
+  grunt.registerTask 'default', [
+    'setup'
+    'browserSync'
+    'watch'
+  ]
+
+  grunt.registerTask 'deploy', [
+    'gh-pages'
+  ]
