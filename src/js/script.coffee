@@ -242,7 +242,8 @@ $ ->
   # ZeroClipboard
   # https:#github.com/zeroclipboard/zeroclipboard
   # Flash/JS button to copy the generated TaskPaper month.
-  copyButton = $('#copy-button')
+  copyButton      = $('#copy-button')
+  copyButtonLabel = copyButton.children('span')
 
   ZeroClipboard.config({ moviePath: 'js/ZeroClipboard.swf' })
   client = new ZeroClipboard(copyButton)
@@ -250,6 +251,12 @@ $ ->
   client.on 'load', (client) ->
     client.on 'datarequested', (client) ->
       client.setText($('#taskpaper-month').val())
+
+  client.on 'aftercopy', (client) ->
+    copyButtonLabel.html('Copied!')
+    setTimeout (->
+      copyButtonLabel.html('Copy')
+    ), 1000
 
   client.on 'noFlash', ->
     copyButton.hide()
