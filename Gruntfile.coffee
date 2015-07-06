@@ -37,6 +37,7 @@ module.exports = (grunt) ->
             'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js'
             'bower_components/purl/purl.js'
             'bower_components/zeroclipboard/dist/ZeroClipboard.js'
+            'bower_components/moment/moment.js'
             '.tmp/js/script.js'
           ]
 

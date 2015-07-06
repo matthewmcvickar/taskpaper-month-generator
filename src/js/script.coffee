@@ -9,10 +9,9 @@ $ ->
     year  = localStorage.getItem('year')
     month = localStorage.getItem('month')
   else
-    today = new Date()
     items = defaultItemList
-    year  = today.getFullYear()
-    month = today.getMonth()
+    year  = moment().year()
+    month = moment().month() + 1
 
   # Replace saved values with URL parameters, if they exist.
   url = $.url()
@@ -25,7 +24,7 @@ $ ->
   focusOnItemsField = -> itemsField.focus()
 
   # 1. Populate year buttons with current and next year.
-  thisYear = new Date().getFullYear()
+  thisYear = moment().year()
   nextYear = thisYear + 1
 
   $('#year-this')
@@ -45,10 +44,8 @@ $ ->
   $('#month-' + month).attr('checked', true)
 
   # 4. Indicate the current month and year.
-  currentMonth = new Date().getMonth() + 1
-  currentYear  = new Date().getFullYear()
-  $('#month-' + currentMonth).addClass('current-month')
-  $('#year-' + currentYear).addClass('current-year')
+  $('#month-' + moment().month() + 1).addClass('current-month')
+  $('#year-' + moment().year()).addClass('current-year')
 
   # 5. Populate items field with loaded items.
   itemsField.val(items)
@@ -67,11 +64,9 @@ $ ->
     selectedYear   = $('input[name="year"]:checked')
     selectedMonth  = $('input[name="month"]:checked')
     year           = selectedYear.val()
-    month          = selectedMonth.val() - 1 # Months are zero-indexed.
-    numberOfDays   = new Date(year, month, 0).getDate()
+    month          = selectedMonth.val()
+    numberOfDays   = moment(year + '-' + month, 'YYYY-MM').daysInMonth();
     generatedMonth = ''
-
-    console.log(numberOfDays)
 
     # Build an array of items from the contents of the textarea.
     # Split the textarea by digits followed by newlines.
@@ -94,27 +89,23 @@ $ ->
     for day in [1..numberOfDays]
 
       # Get the day name.
-      dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-      dayName  = dayNames[new Date(year, month, day).getDay()]
+      dayName = moment(year + '-' + month + '-' + day, 'YYYY-MM-DD').format('dddd')
 
       # Add the day heading:
 
-      # 1. Add one to the day, since Javascript days are 0-indexed.
-      dayNumber = day
+      # 1. Add a newline if we're not on the first day.
+      generatedMonth += '\n' if (day > 1)
 
-      # 2. Add a newline if we're not on the first day.
-      generatedMonth += '\n' if (dayNumber > 1)
+      # 2. Add a zero for days under 10.
+      generatedMonth += '0' if (day < 10)
 
-      # 3. Add a zero for days under 10.
-      generatedMonth += '0' if (dayNumber < 10)
-
-      # 4. Add the day number itself, a colon, and a newline.
-      generatedMonth += dayNumber + ' ' + dayName + ':'
+      # 3. Add the day number itself, a colon, and a newline.
+      generatedMonth += day + ' ' + dayName + ':'
 
       # If this day contains items, print them.
-      if items[dayNumber]
+      if items[day]
 
-        $.each items[dayNumber], (key, value) ->
+        $.each items[day], (key, value) ->
 
           # If the line starts with two spaces or a tab character, make it a note.
           if value.substring(0, 2) == '  ' or value.substring(0, 1) == '\t'
@@ -133,21 +124,21 @@ $ ->
       nextMonth = {}
 
       # If the month is December, start over with January.
-      if month is 11
+      if month is 12
         nextMonth['month'] = 1
         nextMonth['year']  = Number(year) + 1
       else
-        nextMonth['month'] = Number(month) + 2
+        nextMonth['month'] = Number(month) + 1
         nextMonth['year']  = year
 
-      if dayNumber == numberOfDays
+      if day == numberOfDays
         generatedMonth += '\n\t- generate new Taskpaper month\n\t\thttp://matthewmcvickar.github.io/taskpaper-month-generator?year=' + nextMonth['year'] + '&month=' +  nextMonth['month']
 
     # Print generated TaskPaper month to the screen.
     $('#taskpaper-month').val(generatedMonth)
 
-    # Remove parameters from the URL, since we've changed the year and month on pageload.                             # Remember, zero-indexed month.
-    cleanURL  = window.location.href.substring(0, window.location.href.indexOf('?')) + '?year=' + year + '&month=' + (Number(month) + 1)
+    # Remove parameters from the URL, since we've changed the year and month on pageload.
+    cleanURL  = window.location.href.substring(0, window.location.href.indexOf('?')) + '?year=' + year + '&month=' + month
     history.pushState({}, '', cleanURL)
 
     # Save values to localStorage.
@@ -253,7 +244,7 @@ $ ->
   # Flash/JS button to copy the generated TaskPaper month.
   copyButton = $('#copy-button')
 
-  ZeroClipboard.config({ moviePath: 'js/lib/ZeroClipboard.swf' })
+  ZeroClipboard.config({ moviePath: 'js/ZeroClipboard.swf' })
   client = new ZeroClipboard(copyButton)
 
   client.on 'load', (client) ->
@@ -262,8 +253,8 @@ $ ->
 
   client.on 'noFlash', ->
     copyButton.hide()
-    console.error('No Flash installed. Hiding the \'Copy\' button.')
+    console.error("No Flash installed. Hiding the ‘Copy’ button.")
 
   client.on 'wrongFlash', ->
     copyButton.hide()
-    console.error('Wrong version of Flash installed. Hiding the \'Copy\' button.')
+    console.error("Wrong version of Flash installed. Hiding the ‘Copy’ button.")
