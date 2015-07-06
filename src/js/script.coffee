@@ -65,7 +65,7 @@ $ ->
     selectedMonth  = $('input[name="month"]:checked')
     year           = selectedYear.val()
     month          = selectedMonth.val()
-    numberOfDays   = moment(year + '-' + month, 'YYYY-MM').daysInMonth();
+    numberOfDays   = moment(year + '-' + month, 'YYYY-MM').daysInMonth()
     generatedMonth = ''
 
     # Build an array of items from the contents of the textarea.
@@ -112,7 +112,7 @@ $ ->
             generatedMonth += '\n\t' + value
 
           # If the line starts with a dash and a space, make it a todo.
-          # (This is not the suggested syntax, but that's OK!)
+          # (This is not the syntax I suggest you use, but we'll parse it!)
           else if value.substring(0, 2) == '- '
             generatedMonth += '\n\t' + value
 
