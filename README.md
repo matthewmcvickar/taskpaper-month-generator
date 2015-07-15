@@ -53,13 +53,17 @@ To generate an empty month, click the **Empty** button in the editor.
 
 - [CoffeeScript](http://coffeescript.org/)
 - [jQuery](http://jquery.com/)
+- [Moment.js](http://momentjs.com/)
+- [Purl](https://github.com/allmarkedup/purl)
 - [jQuery Throttle/Debounce](http://benalman.com/projects/jquery-throttle-debounce-plugin/)
 - [ZeroClipboard](http://zeroclipboard.org/)
 - [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)
 - [Erik Meyer's CSS Reset](http://meyerweb.com/eric/tools/css/reset/)
 - [SASS](http://sass-lang.com/)
 - [SublimeText](http://www.sublimetext.com/)
-- [CodeKit](https://incident57.com/codekit/)
+- [Grunt](http://gruntjs.com/)
+- [Bower](http://bower.io/)
+- [BrowserSync](http://www.browsersync.io/)
 - [Chrome Developer Tools](https://developer.chrome.com/devtools)
 
 
