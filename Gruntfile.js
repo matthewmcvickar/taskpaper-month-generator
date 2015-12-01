@@ -63,16 +63,28 @@ module.exports = function(grunt) {
       }
     },
 
+    imagemin: {
+      options: {
+        progressive: true
+      },
+      build: {
+        files: [{
+          expand: true,
+          cwd: 'src/img',
+          src: ['**/*.{png,jpg,gif,ico}'],
+          dest: 'build/img'
+        }]
+      },
+    },
+
     svgmin: {
       build: {
-        files: [
-          {
-            expand: true,
-            cwd: 'src/svg',
-            src: ['**/*.svg'],
-            dest: 'build/svg'
-          }
-        ]
+        files: [{
+          expand: true,
+          cwd: 'src/svg',
+          src: ['**/*.svg'],
+          dest: 'build/svg'
+        }]
       }
     },
 
@@ -109,6 +121,10 @@ module.exports = function(grunt) {
         files: ['.tmp/css/style.css'],
         tasks: ['autoprefixer']
       },
+      imagemin: {
+        files: ['src/img/*.*'],
+        tasks: ['imagemin']
+      },
       reload: {
         files: ['build/**/*.{html,js,svg}'],
         options: {
@@ -136,6 +152,7 @@ module.exports = function(grunt) {
     'copy',
     'sass',
     'autoprefixer',
+    'imagemin',
     'coffee',
     'uglify',
     'svgmin'
