@@ -238,30 +238,22 @@ $ ->
     else
       hideEmptyItemsButton()
 
-
-  # ZeroClipboard
-  # https:#github.com/zeroclipboard/zeroclipboard
-  # Flash/JS button to copy the generated TaskPaper month.
+  # Copy-to-clipboard button.
   copyButton      = $('#copy-button')
   copyButtonLabel = copyButton.children('span')
 
-  ZeroClipboard.config({ moviePath: 'js/ZeroClipboard.swf' })
-  client = new ZeroClipboard(copyButton)
+  copyToClipboard = new Clipboard('#copy-button')
 
-  client.on 'load', (client) ->
-    client.on 'datarequested', (client) ->
-      client.setText($('#taskpaper-month').val())
-
-  client.on 'aftercopy', (client) ->
+  copyToClipboard.on 'success', (e) ->
+    e.clearSelection()
+    $('#taskpaper-month').scrollTop(0)
     copyButtonLabel.html('Copied!')
+
+  copyToClipboard.on 'error', (e) ->
+    copyButtonLabel.html('Press ⌘+C to copy')
+
+  # Reset the label on the 'Copy' button once user mouses off of it.
+  copyButton.on 'mouseleave', (e) ->
     setTimeout (->
       copyButtonLabel.html('Copy')
     ), 1000
-
-  client.on 'noFlash', ->
-    copyButton.hide()
-    console.error("No Flash installed. Hiding the ‘Copy’ button.")
-
-  client.on 'wrongFlash', ->
-    copyButton.hide()
-    console.error("Wrong version of Flash installed. Hiding the ‘Copy’ button.")

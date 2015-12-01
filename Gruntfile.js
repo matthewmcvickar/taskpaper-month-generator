@@ -16,12 +16,6 @@ module.exports = function(grunt) {
         cwd: 'src',
         src: '**/*.html',
         dest: 'build'
-      },
-      zeroClipboardSWF: {
-        expand: true,
-        cwd: 'bower_components/zeroclipboard/dist',
-        src: 'ZeroClipboard.swf',
-        dest: 'build/js/'
       }
     },
 
@@ -40,7 +34,7 @@ module.exports = function(grunt) {
             'bower_components/jquery/dist/jquery.js',
             'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js',
             'bower_components/purl/purl.js',
-            'bower_components/zeroclipboard/dist/ZeroClipboard.js',
+            'bower_components/clipboard/dist/clipboard.js',
             'bower_components/moment/moment.js',
             '.tmp/js/script.js'
           ]
