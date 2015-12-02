@@ -4,20 +4,20 @@ $ ->
   # or get the current year and month and the default item set.
   defaultItemList = '1\nto-do item\n\n14\nanother task\n\tnotes\n\n29\ntask\nyet another task\n\tnotes and details\n\tanother note'
 
-  if localStorage.getItem('items')
-    items = localStorage.getItem('items')
-    year  = localStorage.getItem('year')
-    month = localStorage.getItem('month')
+  if localStorage.getItem('TaskPaperMonthGenerator_items')
+    items = localStorage.getItem('TaskPaperMonthGenerator_items')
+    year  = localStorage.getItem('TaskPaperMonthGenerator_year')
+    month = localStorage.getItem('TaskPaperMonthGenerator_month')
   else
     items = defaultItemList
     year  = moment().year()
     month = moment().month() + 1
 
   # Replace saved values with URL parameters, if they exist.
-  url = $.url()
-  year = url.param('year') if url.param('year')?
-  month = url.param('month') if url.param('month')?
-
+  if URI().hasQuery('year') && URI().search(true).year is not 'undefined'
+    year = URI().search(true).year
+  if URI().hasQuery('month') && typeof URI().search(true).month is not 'undefined'
+    month = URI().search(true).month
 
   # Initial setup:
   itemsField = $('#items')
@@ -138,13 +138,13 @@ $ ->
     $('#taskpaper-month').val(generatedMonth)
 
     # Remove parameters from the URL, since we've changed the year and month on pageload.
-    cleanURL  = window.location.href.substring(0, window.location.href.indexOf('?')) + '?year=' + year + '&month=' + month
+    cleanURL = window.location.href.substring(0, window.location.href.indexOf('?')) + '?year=' + year + '&month=' + month
     history.pushState({}, '', cleanURL)
 
     # Save values to localStorage.
-    localStorage.setItem('year',  selectedYear.val())
-    localStorage.setItem('month', selectedMonth.val())
-    localStorage.setItem('items', itemsField.val())
+    localStorage.setItem('TaskPaperMonthGenerator_year',  selectedYear.val())
+    localStorage.setItem('TaskPaperMonthGenerator_month', selectedMonth.val())
+    localStorage.setItem('TaskPaperMonthGenerator_items', itemsField.val())
 
 
   # Regenerate TaskPaper month on subsequent updates.

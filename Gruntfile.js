@@ -1,7 +1,5 @@
 module.exports = function(grunt) {
 
-  require('jit-grunt')(grunt);
-
   grunt.initConfig({
     clean: {
       files: [
@@ -29,13 +27,16 @@ module.exports = function(grunt) {
 
     uglify: {
       build: {
+        options: {
+          sourceMap: true
+        },
         files: {
           'build/js/lib+script.js': [
-            'bower_components/jquery/dist/jquery.js',
-            'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js',
-            'bower_components/purl/purl.js',
-            'bower_components/clipboard/dist/clipboard.js',
-            'bower_components/moment/moment.js',
+            'node_modules/jquery/dist/jquery.js',
+            'node_modules/clipboard/dist/clipboard.js',
+            'node_modules/moment/moment.js',
+            'node_modules/throttle-debounce/dist/throttle-debounce.js',
+            'node_modules/urijs/src/URI.js',
             '.tmp/js/script.js'
           ]
         }
@@ -43,9 +44,12 @@ module.exports = function(grunt) {
     },
 
     sass: {
+      options: {
+        style: 'compressed'
+      },
       build: {
         files: {
-          '.tmp/css/style.css': 'src/css/style.sass'
+          '.tmp/css/style.css': 'src/css/style.scss'
         }
       }
     },
@@ -108,7 +112,7 @@ module.exports = function(grunt) {
         tasks: ['uglify']
       },
       sass: {
-        files: ['src/css/*.sass'],
+        files: ['src/css/*.scss'],
         tasks: ['sass']
       },
       autoprefixer: {
@@ -141,6 +145,20 @@ module.exports = function(grunt) {
     }
   });
 
+  // Plugins.
+  grunt.loadNpmTasks('grunt-autoprefixer');
+  grunt.loadNpmTasks('grunt-browser-sync');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-svgmin');
+
+  // Tasks.
   grunt.registerTask('setup', [
     'clean',
     'copy',
