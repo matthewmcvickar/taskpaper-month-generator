@@ -12,17 +12,17 @@ $(document).ready(function() {
 
   if (localStorage.getItem('TaskPaperMonthGenerator_items')) {
     items = localStorage.getItem('TaskPaperMonthGenerator_items');
-    year = localStorage.getItem('TaskPaperMonthGenerator_year');
+    year  = localStorage.getItem('TaskPaperMonthGenerator_year');
     month = localStorage.getItem('TaskPaperMonthGenerator_month');
   } else {
     items = defaultItemList;
-    year = moment().year();
+    year  = moment().year();
     month = moment().month() + 1;
   }
 
   // Replace saved values with URL parameters, if they exist.
   if (URI().hasQuery('year') && URI().search(true).year === !'undefined') {
-    year = URI().search(true).year;
+    year  = URI().search(true).year;
   }
   if (URI().hasQuery('month') && typeof URI().search(true).month === !'undefined') {
     month = URI().search(true).month;
