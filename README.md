@@ -1,6 +1,6 @@
 # TaskPaper Month Generator
 
-**[matthewmcvickar.github.io/taskpaper-month-generator](http://matthewmcvickar.github.io/taskpaper-month-generator)**
+**Use it here: [matthewmcvickar.github.io/taskpaper-month-generator](http://matthewmcvickar.github.io/taskpaper-month-generator)**
 
 Given a list of tasks, generates a list of days and tasks for a specified month that can be pasted into TaskPaper for a monthly schedule.
 
@@ -37,7 +37,7 @@ To generate an empty month, click the **Empty** button in the editor.
 
 ## Nifty Features
 
-- The `Tab` key works in the editor, to allow for notes.
+- The <kbd>Tab</kbd> key works in the editor, to allow for notes.
 - Generates a link to generate the next month at the end of the list.
 - Quick copy-to-clipboard button.
 - Utilizes local storage so that your list of monthly tasks is retained between visits.
@@ -51,22 +51,37 @@ To generate an empty month, click the **Empty** button in the editor.
 
 ## Credits
 
-- [CoffeeScript](http://coffeescript.org/)
-- [jQuery](http://jquery.com/)
-- [Moment.js](http://momentjs.com/)
-- [Purl](https://github.com/allmarkedup/purl)
-- [jQuery Throttle/Debounce](http://benalman.com/projects/jquery-throttle-debounce-plugin/)
-- [ZeroClipboard](http://zeroclipboard.org/)
-- [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)
-- [Erik Meyer's CSS Reset](http://meyerweb.com/eric/tools/css/reset/)
-- [SASS](http://sass-lang.com/)
-- [SublimeText](http://www.sublimetext.com/)
+### TaskPaper
+
+[TaskPaper](http://www.hogbaysoftware.com/products/taskpaper) is developed by Jesse Grosjean of Hog Bay Software.
+
+### Development
+
+- [Sublime Text](http://www.sublimetext.com/)
 - [Grunt](http://gruntjs.com/)
-- [Bower](http://bower.io/)
+- [SASS](http://sass-lang.com/)
+- [Normalize.css](https://necolas.github.io/normalize.css/)
 - [BrowserSync](http://www.browsersync.io/)
 - [Chrome Developer Tools](https://developer.chrome.com/devtools)
+
+### Design
+
+- [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)
+
+### Libraries
+
+- [jQuery](http://jquery.com/)
+- [jQuery Throttle/Debounce](https://github.com/cowboy/jquery-throttle-debounce)
+- [Moment.js](http://momentjs.com/)
+- [URI.js](https://medialize.github.io/URI.js/)
+- [Clipboard.js](https://zenorocha.github.io/clipboard.js/)
 
 
 ## Thanks
 
 - [Justin Falcone](http://github.com/modernserf) and [Cody Robbins](http://github.com/codyrobbins) for code review
+
+
+## License
+
+- [MIT License(http://matthewmcvickar.mit-license.org/) © Matthew McVickar
