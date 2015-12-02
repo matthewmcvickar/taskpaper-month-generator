@@ -1,6 +1,6 @@
 // Includes.
 
-@import "reset";
+@import "/node_modules/normalize.css/normalize.css";
 @import "mixins";
 
 
@@ -26,6 +26,23 @@ $button-offset-right: 28px;
 html,
 body {
   color: #333333;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 48px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
 }
 
 
@@ -169,7 +186,7 @@ header {
   font-size: 48px;
   font-weight: 600;
   letter-spacing: -1px;
-  margin: 0.5em 0;
+  margin: 20px 0;
   text-align: center;
   a {
     color: inherit;
