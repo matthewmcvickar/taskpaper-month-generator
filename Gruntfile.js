@@ -17,6 +17,51 @@ module.exports = function(grunt) {
       }
     },
 
+    jshint: {
+      files: {
+        src: [
+          'Gruntfile.js',
+          'src/js/script.js'
+        ]
+      },
+      options: {
+        eqeqeq:  true,
+        forin:   true,
+        latedef: true,
+        undef:   true,
+        unused:  true,
+        eqnull:  true,
+        node:    true,
+        browser: true,
+        jquery:  true,
+        globals: {
+          console:   true,
+          moment:    true,
+          URI:       true,
+          Clipboard: true
+        }
+      }
+    },
+
+    jscs: {
+      files: {
+        src: [
+          'Gruntfile.js',
+          'src/js/script.js'
+        ]
+      },
+      options: {
+        requireCapitalizedConstructors: true,
+        requireCurlyBraces:             true,
+        requireDotNotation:             true,
+        requireParenthesesAroundIIFE:   true,
+        disallowEmptyBlocks:            true,
+        disallowMixedSpacesAndTabs:     true,
+        validateIndentation:            2,
+        validateQuoteMarks:             '\''
+      }
+    },
+
     uglify: {
       build: {
         options: {
@@ -96,9 +141,9 @@ module.exports = function(grunt) {
         files: ['src/**/*.html'],
         tasks: ['copy:build']
       },
-      uglify: {
+      javascript: {
         files: ['src/js/*.js'],
-        tasks: ['uglify']
+        tasks: ['jshint', 'jscs', 'uglify']
       },
       sass: {
         files: ['src/css/*.scss'],
@@ -140,9 +185,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-svgmin');
 
@@ -153,6 +201,8 @@ module.exports = function(grunt) {
     'sass',
     'autoprefixer',
     'imagemin',
+    'jshint',
+    'jscs',
     'uglify',
     'svgmin'
   ]);
