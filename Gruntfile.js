@@ -17,18 +17,11 @@ module.exports = function(grunt) {
       }
     },
 
-    coffee: {
-      build: {
-        files: {
-          '.tmp/js/script.js': 'src/js/script.coffee'
-        }
-      }
-    },
-
     uglify: {
       build: {
         options: {
-          sourceMap: true
+          sourceMap: true,
+          mangle: false
         },
         files: {
           'build/js/lib+script.js': [
@@ -37,7 +30,7 @@ module.exports = function(grunt) {
             'node_modules/moment/moment.js',
             'node_modules/throttle-debounce/dist/throttle-debounce.js',
             'node_modules/urijs/src/URI.js',
-            '.tmp/js/script.js'
+            'src/js/script.js'
           ]
         }
       }
@@ -103,10 +96,6 @@ module.exports = function(grunt) {
         files: ['src/**/*.html'],
         tasks: ['copy:build']
       },
-      coffee: {
-        files: ['src/js/script.coffee'],
-        tasks: ['coffee']
-      },
       uglify: {
         files: ['.tmp/js/**/*.js'],
         tasks: ['uglify']
@@ -149,7 +138,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-browser-sync');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -165,7 +153,6 @@ module.exports = function(grunt) {
     'sass',
     'autoprefixer',
     'imagemin',
-    'coffee',
     'uglify',
     'svgmin'
   ]);
