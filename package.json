@@ -24,7 +24,6 @@
     "grunt-svgmin": "^2.0.1",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",
-    "normalize.css": "^3.0.3",
     "throttle-debounce": "^0.1.1",
     "urijs": "^1.17.0"
   }
