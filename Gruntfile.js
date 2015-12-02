@@ -64,10 +64,6 @@ module.exports = function(grunt) {
 
     uglify: {
       build: {
-        options: {
-          sourceMap: true,
-          mangle: false
-        },
         files: {
           'build/js/lib+script.js': [
             'node_modules/jquery/dist/jquery.js',
