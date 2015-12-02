@@ -62,7 +62,7 @@ jQuery(function($) {
   //    a. Populate the form from the loaded data,
   //    b. generate the TaskPaper month from the items field, and
   //    c. store the results in localStorage.
-  var generateTaskPaperMonth = function() {
+  function generateTaskPaperMonth() {
 
     // Read the form data; prepare to generate a month.
     var selectedYear   = $('input[name="year"]:checked'),
@@ -168,7 +168,8 @@ jQuery(function($) {
     localStorage.setItem('TaskPaperMonthGenerator_items', itemsField.val());
   }
 
-  // Regenerate TaskPaper month on subsequent updates.
+  // Regenerate TaskPaper month on pageload and subsequent updates.
+  generateTaskPaperMonth();
   $('input[name="month"]').on('change', generateTaskPaperMonth)
   $('input[name="year"]').on('change', generateTaskPaperMonth)
   itemsField.on('keyup', $.debounce(250, generateTaskPaperMonth))
