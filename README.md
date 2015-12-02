@@ -84,4 +84,4 @@ To generate an empty month, click the **Empty** button in the editor.
 
 ## License
 
-- [MIT License(http://matthewmcvickar.mit-license.org/) © Matthew McVickar
+- [MIT License](http://matthewmcvickar.mit-license.org/) © Matthew McVickar
