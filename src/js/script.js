@@ -192,7 +192,7 @@ $(document).ready(function() {
   $('#month-' + month).attr('checked', true);
 
   // 4. Indicate the current month and year.
-  $('#month-' + now.month() + 1).addClass('current-month');
+  $('#month-' + (now.month() + 1)).addClass('current-month');
   $('#year-' + now.year()).addClass('current-year');
 
   // 5. Populate items field with loaded items.
