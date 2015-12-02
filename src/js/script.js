@@ -1,4 +1,4 @@
-jQuery(function($) {
+$(document).ready(function() {
 
   // Load the year, month, and items values from localStorage, or get the
   // current year and month and the default item set.
