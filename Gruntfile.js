@@ -126,8 +126,28 @@ module.exports = function(grunt) {
       },
       options: {
         watchTask: true,
+        open: false,
         server: {
           baseDir: 'build'
+        },
+        notify: {
+          styles: [
+            'z-index: 9999',
+            'position: fixed',
+            'left: 50%',
+            'top: 0px',
+            'transform: translate(-50%, 0)',
+            'margin: 0',
+            'padding: 10px 15px',
+            'border-bottom-left-radius: 5px',
+            'border-bottom-right-radius: 5px',
+            'background-color: rgba(0, 0, 0, 0.5)',
+            'color: white',
+            'font-family: sans-serif',
+            'font-size: 12px',
+            'font-weight: bold',
+            'text-align: center'
+          ]
         }
       }
     },
