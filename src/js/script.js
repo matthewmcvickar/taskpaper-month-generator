@@ -132,7 +132,7 @@ $(document).ready(function() {
       }
 
       if (day === numberOfDays) {
-        generatedMonth += '\n\t- generate new Taskpaper month\n\t\thttp://matthewmcvickar.github.io/taskpaper-month-generator?year=' + nextMonth.year + '&month=' +  nextMonth.month;
+        generatedMonth += '\n\t- generate new Taskpaper month\n\t\thttp://matthewmcvickar.github.io/taskpaper-month-generator/?year=' + nextMonth.year + '&month=' +  nextMonth.month;
       }
     }
 
