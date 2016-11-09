@@ -123,7 +123,7 @@ $(document).ready(function() {
       // Generator with the next year and month set in the query parameters.
 
       // If the month is December, start over with January.
-      if (month === 12) {
+      if (month === '12') {
         nextMonth.month = 1;
         nextMonth.year  = Number(year) + 1;
       } else {
@@ -211,7 +211,7 @@ $(document).ready(function() {
   // Watch the input fields for changes, and re-generate the month.
   $('input[name="month"]').on('change', generateTaskPaperMonth);
   $('input[name="year"]').on('change', generateTaskPaperMonth);
-  itemsField.on('keyup', $.debounce(250, generateTaskPaperMonth));
+  itemsField.on('keyup', _.debounce(generateTaskPaperMonth, 250));
 
   // Make the Tab key insert an actual tab in the textarea.
   itemsField.keydown(function(key) {

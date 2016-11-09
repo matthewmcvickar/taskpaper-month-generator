@@ -53,7 +53,7 @@ module.exports = function(grunt) {
             'node_modules/jquery/dist/jquery.js',
             'node_modules/clipboard/dist/clipboard.js',
             'node_modules/moment/moment.js',
-            'node_modules/throttle-debounce/dist/throttle-debounce.js',
+            'node_modules/underscore/underscore-min.js',
             'node_modules/urijs/src/URI.js',
             'src/js/script.js'
           ]
