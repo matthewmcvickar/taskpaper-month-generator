@@ -249,13 +249,18 @@ header {
     margin: 1em 0;
 
     & kbd {
-      background: #f1f1f1;
-      border: 1px solid #cccccc;
-      border-radius: 4px;
-      padding: 0.1em 0.4em;
-      font-family: Monaco, Courier, monospace;
-      font-size: 90%;
-      margin: 0 0.25em;
+      font: 11px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      display: inline-block;
+      padding: 3px 5px;
+      font-size: 11px;
+      line-height: 10px;
+      color: #444d56;
+      vertical-align: middle;
+      background-color: #fafbfc;
+      border: solid 1px #c6cbd1;
+      border-bottom-color: #959da5;
+      border-radius: 3px;
+      box-shadow: inset 0 -1px 0 #959da5;
     }
   }
 }
