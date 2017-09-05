@@ -7,7 +7,7 @@ var URI = require('urijs');
 jQuery(document).ready(function($) {
 
   // So many variables!
-  var defaultItemList = '1\nto-do item\n\n14\nanother task\n\tnotes\n\n29\ntask\nyet another task\n\tnotes and details\n\tanother note',
+  var defaultItemList = '1:\n- to-do item\n\n14:\n- another task\n\tnotes\n\n29:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\nmon:\n- a weekly task\n\nWednesdays:\n- happens every Wednesday',
       items,
       itemsField = $('#items'),
       year,
@@ -58,14 +58,23 @@ jQuery(document).ready(function($) {
 
     // Build an array of items from the contents of the textarea. Split the
     // textarea by digits followed by newlines.
-    itemsArray = itemsField.val().split(/(\d+):?\n/m);
+    itemsArray = itemsField.val().split(/(\d+|sun|mon|tue|wed|thu|fri|sat|sunday|monday|tuesday|wednesday|thursday|friday|saturday|last)s? ?:?\n/mi);
 
     // Hack off the first (empty) array item.
     itemsArray.shift();
 
-    // Create an associative array by iterating through even and odd array
-    // items. (Odd are days, even are that day's items.)
-    $.each(itemsArray, function(key) {
+    // The itemsArray has split our textbox into a series of headings (day
+    // numbers or day names), each followed by its items. We now create an
+    // associative array by iterating through even and odd array items.
+    // (Odd are days, even are that day's items.)
+    $.each(itemsArray, function(key, val) {
+
+      // Normalize day names by lowercasing them and only keeping the first
+      // three letters. Turn 'Tuesday' and 'wednesday' into 'tue' and 'wed'.
+      if (val.match(/(sun|mon|tue|wed|thu|fri|sat)/i)) {
+        itemsArray[key] = val.toLowerCase().substr(0, 3);
+      }
+
       if (key % 2 === 0) {
         items[itemsArray[key]] = itemsArray[key + 1];
       }
@@ -76,11 +85,13 @@ jQuery(document).ready(function($) {
       items[key] = items[key].trim().split('\n');
     });
 
+
     // Loop through each of the days and include the items therein.
     for (var day = 1; day <= numberOfDays; day++) {
 
       // Get the day name.
       var dayName = moment(year + '-' + month + '-' + day, 'YYYY-MM-DD').format('dddd');
+      var shortenedDayName = dayName.toLowerCase().substr(0, 3);
 
       // Add the day heading:
 
@@ -97,13 +108,22 @@ jQuery(document).ready(function($) {
       // 3. Add the day number itself, a colon, and a newline.
       generatedMonth += day + ' ' + dayName + ':';
 
-      // If this day contains items, print them.
-      if (items[day]) {
+      // If this day number or day name contains items, print them.
+      if (items[day] || items[shortenedDayName]) {
+
+        // If this is a day number or day name.
+        if (items[day]) {
+          var thisDay = items[day];
+        }
+
+        if (items[shortenedDayName]) {
+          var thisDay = items[shortenedDayName];
+        }
 
         // Step through each item and parse it.
-        for (var i = 0; i < items[day].length; i++) {
+        for (var i = 0; i < thisDay.length; i++) {
 
-          var line = items[day][i];
+          var line = thisDay[i];
 
           // If the line starts with two spaces or a tab character, make it a
           // note.
