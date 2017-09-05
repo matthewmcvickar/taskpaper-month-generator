@@ -80,6 +80,11 @@ jQuery(document).ready(function($) {
         itemsArray[key] = 'last';
       }
 
+      // Normalize numbers to omit leading zeros.
+      else if (parseInt(val)) {
+        itemsArray[key] = parseInt(val, 10);
+      }
+
       if (key % 2 === 0) {
         items[itemsArray[key]] = itemsArray[key + 1];
       }
