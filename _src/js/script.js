@@ -1,13 +1,13 @@
 global.jQuery = require('jquery');
 var Clipboard = require('clipboard');
 var moment = require('moment');
-var _ = require('underscore');
+var debounce = require('lodash/debounce');
 var URI = require('urijs');
 
 jQuery(document).ready(function($) {
 
   // So many variables!
-  var defaultItemList = '1:\n- to-do item\n\n14:\n- another task\n\tnotes\n\n29:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\nmon:\n- a weekly task\n\nWednesdays:\n- happens every Wednesday\n\nlast:\n- a task on the last day of the month',
+  var defaultItemList = '1:\n- to-do item\n\n14:\n- another task\n\tnotes\n\n25:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\nmon:\n- a weekly task\n\nWednesdays:\n- happens every Wednesday\n\nlast:\n- a task on the last day of the month',
       items,
       itemsField = $('#items'),
       year,
@@ -248,7 +248,7 @@ jQuery(document).ready(function($) {
   // Watch the input fields for changes, and re-generate the month.
   $('input[name="month"]').on('change', generateTaskPaperMonth);
   $('input[name="year"]').on('change', generateTaskPaperMonth);
-  itemsField.on('keyup', _.debounce(generateTaskPaperMonth, 200));
+  itemsField.on('keyup', debounce(generateTaskPaperMonth, 200));
 
   // Make the Tab key insert an actual tab in the textarea.
   itemsField.keydown(function(key) {

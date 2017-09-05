@@ -1,6 +1,6 @@
 {
   "name": "taskpaper-month-generator",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "homepage": "https://matthewmcvickar.github.io/taskpaper-month-generator",
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "gulp-svgmin": "^1.2.4",
     "gulp-uglify": "^3.0.0",
     "jquery": "^3.1.1",
+    "lodash": "^4.17.4",
     "moment": "^2.15.2",
     "normalize.css": "^7.0.0",
     "postcss-calc": "^6.0.0",
