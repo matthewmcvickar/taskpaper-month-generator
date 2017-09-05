@@ -1,3 +1,5 @@
+<p align="center"><img src="./art/Favicon.png" width="60" height="60"></p>
+
 # TaskPaper Month Generator
 
 **Use it here: [matthewmcvickar.github.io/taskpaper-month-generator](http://matthewmcvickar.github.io/taskpaper-month-generator)**
@@ -74,11 +76,11 @@ To generate an empty month, click the **Empty** button in the editor.
 
 ### Libraries
 
+- [Clipboard.js](https://clipboardjs.com/)
 - [jQuery](http://jquery.com/)
-- [Underscore](http://underscorejs.org/)
-- [Moment.js](http://momentjs.com/)
+- [Lodash](https://lodash.com/)
+- [Moment.js](https://momentjs.com/)
 - [URI.js](https://medialize.github.io/URI.js/)
-- [Clipboard.js](https://zenorocha.github.io/clipboard.js/)
 
 
 ## Thanks
