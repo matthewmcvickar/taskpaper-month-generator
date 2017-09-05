@@ -7,7 +7,7 @@ var URI = require('urijs');
 jQuery(document).ready(function($) {
 
   // So many variables!
-  var defaultItemList = '1:\n- to-do item\n\n14:\n- another task\n\tnotes\n\n29:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\nmon:\n- a weekly task\n\nWednesdays:\n- happens every Wednesday',
+  var defaultItemList = '1:\n- to-do item\n\n14:\n- another task\n\tnotes\n\n29:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\nmon:\n- a weekly task\n\nWednesdays:\n- happens every Wednesday\n\nlast:\n- a task on the last day of the month',
       items,
       itemsField = $('#items'),
       year,
