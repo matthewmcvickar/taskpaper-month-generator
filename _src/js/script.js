@@ -58,7 +58,7 @@ jQuery(document).ready(function($) {
 
     // Build an array of items from the contents of the textarea. Split the
     // textarea by digits followed by newlines.
-    itemsArray = itemsField.val().split(/(\d+|sun|mon|tue|wed|thu|fri|sat|sunday|monday|tuesday|wednesday|thursday|friday|saturday|last)s? ?:?\n/mi);
+    itemsArray = itemsField.val().split(/^(\d+|sun|mon|tue|wed|thu|fri|sat|sunday|monday|tuesday|wednesday|thursday|friday|saturday|last|last day|final)s? ?:?\n/mi);
 
     // Hack off the first (empty) array item.
     itemsArray.shift();
@@ -69,10 +69,15 @@ jQuery(document).ready(function($) {
     // (Odd are days, even are that day's items.)
     $.each(itemsArray, function(key, val) {
 
-      // Normalize day names by lowercasing them and only keeping the first
-      // three letters. Turn 'Tuesday' and 'wednesday' into 'tue' and 'wed'.
+      // Normalize day names by only keeping the first three letters. I.e., turn
+      // 'Tuesday' and 'wednesday' into 'tue' and 'wed'.
       if (val.match(/(sun|mon|tue|wed|thu|fri|sat)/i)) {
         itemsArray[key] = val.toLowerCase().substr(0, 3);
+      }
+
+      // Normalize 'last' and 'final' to 'last'.
+      else if (val.match(/(last|last day|final)/i)) {
+        itemsArray[key] = 'last';
       }
 
       if (key % 2 === 0) {
@@ -84,7 +89,6 @@ jQuery(document).ready(function($) {
     $.each(items, function(key) {
       items[key] = items[key].trim().split('\n');
     });
-
 
     // Loop through each of the days and include the items therein.
     for (var day = 1; day <= numberOfDays; day++) {
@@ -109,7 +113,7 @@ jQuery(document).ready(function($) {
       generatedMonth += day + ' ' + dayName + ':';
 
       // If this day number or day name contains items, print them.
-      if (items[day] || items[shortenedDayName]) {
+      if (items[day] || items[shortenedDayName] || (items['last'] && day === numberOfDays)) {
 
         // If this is a day number or day name.
         if (items[day]) {
@@ -118,6 +122,11 @@ jQuery(document).ready(function($) {
 
         if (items[shortenedDayName]) {
           var thisDay = items[shortenedDayName];
+        }
+
+        // If this is the last day of the month.
+        if (items['last'] && day === numberOfDays) {
+          var thisDay = items['last'];
         }
 
         // Step through each item and parse it.

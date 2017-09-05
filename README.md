@@ -11,11 +11,13 @@ For use with [Taskpaper Tiles](https://github.com/matthewmcvickar/taskpapertiles
 
 Go to the **[TaskPaper Month Generator](http://matthewmcvickar.github.io/taskpaper-month-generator)**.
 
-To add tasks to a day, enter the day number, start a new line, and list each new task on a new line, like you would in TaskPaper. Start a new line and press `Tab` to start an indented note.
+**To add tasks to a day**, enter the day number, start a new line, and list each new task on a new line, like you would in TaskPaper. Start a new line and press `Tab` to start an indented note.
+
+**Events that repeat on a given day each week** can be listed under their day name, and the formatting is flexible: `Monday` and `Mondays` and `monday` and `mon` all work just fine.
+
+**Events that happen on the last day of the month** can be listed under the heading `last` or `Last` or `Last Day` or `final` or `Final`.
 
 The expected syntax is relatively forgiving. You can omit the colons after day names and you can omit the dashes before tasks, and it will still work.
-
-Events that repeat on a given day each week can be listed under their day name, and the formatting is flexible: `Monday` and `Mondays` and `monday` and `mon` all work just fine.
 
 ### Example
 
@@ -40,6 +42,9 @@ Monday:
 
 wed
 a task that happens every wednesday
+
+last:
+- a task that happens on the last day of the month
 ```
 
 The generated TaskPaper month will be updated as you type. Hit the **Copy** button in the generated month box to copy it all to your clipboard, then paste it into a Taskpaper document.
@@ -54,10 +59,6 @@ To generate an empty month, click the **Empty** button in the editor.
 - Quick copy-to-clipboard button.
 - Utilizes local storage so that your list of monthly tasks is retained between visits.
 - Syntax for tasks that occur weekly on a given day.
-
-
-## Planned Features
-
 - Syntax for tasks on the last day of the month.
 
 
