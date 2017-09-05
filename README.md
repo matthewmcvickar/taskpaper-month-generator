@@ -19,7 +19,7 @@ Events that repeat on a given day each week can be listed under their day name, 
 
 ### Example
 
-This syntax is inconsistent to show its flexibility. This will compile to a correctly.
+This syntax is inconsistent to demonstrate its flexibility:
 
 ```
 1:
@@ -67,15 +67,6 @@ To generate an empty month, click the **Empty** button in the editor.
 
 [TaskPaper](http://www.hogbaysoftware.com/products/taskpaper) is developed by Jesse Grosjean of Hog Bay Software.
 
-### Development
-
-- [Sublime Text](http://www.sublimetext.com/)
-- [Grunt](http://gruntjs.com/)
-- [SASS](http://sass-lang.com/)
-- [Normalize.css](https://necolas.github.io/normalize.css/)
-- [BrowserSync](http://www.browsersync.io/)
-- [Chrome Developer Tools](https://developer.chrome.com/devtools)
-
 ### Design
 
 - [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)
@@ -83,7 +74,7 @@ To generate an empty month, click the **Empty** button in the editor.
 ### Libraries
 
 - [jQuery](http://jquery.com/)
-- [jQuery Throttle/Debounce](https://github.com/cowboy/jquery-throttle-debounce)
+- [Underscore](http://underscorejs.org/)
 - [Moment.js](http://momentjs.com/)
 - [URI.js](https://medialize.github.io/URI.js/)
 - [Clipboard.js](https://zenorocha.github.io/clipboard.js/)
