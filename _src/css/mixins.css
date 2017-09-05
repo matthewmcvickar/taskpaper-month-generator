@@ -1,0 +1,12 @@
+@define-mixin triangle-bottom $size, $color {
+  &:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    margin-left: -$size;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+  }
+}

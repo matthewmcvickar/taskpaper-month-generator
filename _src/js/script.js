@@ -1,4 +1,10 @@
-$(document).ready(function() {
+global.jQuery = require('jquery');
+var Clipboard = require('clipboard');
+var moment = require('moment');
+var _ = require('underscore');
+var URI = require('urijs');
+
+jQuery(document).ready(function($) {
 
   // So many variables!
   var defaultItemList = '1\nto-do item\n\n14\nanother task\n\tnotes\n\n29\ntask\nyet another task\n\tnotes and details\n\tanother note',

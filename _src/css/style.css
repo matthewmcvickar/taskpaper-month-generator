@@ -1,17 +1,16 @@
-// Includes.
+/* Includes. */
 
-@import "vendor/normalize";
 @import "mixins";
 
 
-// Variables.
+/* Variables. */
 
 $blue: #0099ff;
 $button-offset-top: 80px;
 $button-offset-right: 28px;
 
 
-// Base.
+/* Base. */
 
 * {
   position: relative;
@@ -46,13 +45,13 @@ p {
 }
 
 
-// Form Elements.
+/* Form Elements. */
 
 .dialog {
-  background: salmon * 1.5;
-  border: 1px solid salmon * 1.1;
+  background: salmon;
+  border: 1px solid darkred;
   border-radius: 3px;
-  box-shadow: 0 0 15px rgba(black, 0.25);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
   color: #333333;
   display: none;
   padding: 0.75em;
@@ -63,12 +62,11 @@ p {
   z-index: 99;
   width: 200px;
 
-  p {
+  & p {
     font-size: 14px;
     line-height: 1.25;
     margin-bottom: 0.75em;
   }
-
 }
 
 button {
@@ -84,7 +82,7 @@ button {
   text-align: center;
   outline: 0;
 
-  img {
+  & img {
     opacity: 0.5;
     margin-left: 3px;
     vertical-align: -6px;
@@ -121,7 +119,7 @@ button {
 }
 
 
-// Layout.
+/* Layout. */
 
 html,
 body,
@@ -134,42 +132,42 @@ body,
   max-width: 800px;
   display: flex;
   flex-direction: column;
+}
 
-  .choose-month-and-year {
-    display: flex;
+.choose-month-and-year {
+  display: flex;
 
-    #months { flex-grow: 1; }
-    #years  { flex-grow: 1; }
-  }
+  & #months { flex-grow: 1; }
+  & #years  { flex-grow: 1; }
+}
 
-  .items-field-and-generated-month {
+.items-field-and-generated-month {
+  display: flex;
+  flex: 1;
+
+  & .input {
     display: flex;
     flex: 1;
+    flex-direction: column;
 
-    .input {
-      display: flex;
+    & textarea {
       flex: 1;
-      flex-direction: column;
-
-      textarea {
-        flex: 1;
-      }
     }
+  }
 
-    .output {
-      display: flex;
+  & .output {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    & textarea {
       flex: 1;
-      flex-direction: column;
-
-      textarea {
-        flex: 1;
-      }
     }
   }
 }
 
 
-// Design.
+/* Design. */
 
 body,
 input,
@@ -180,7 +178,7 @@ textarea {
 }
 
 
-// Header.
+/* Header. */
 
 header {
   font-size: 48px;
@@ -188,27 +186,28 @@ header {
   letter-spacing: -1px;
   margin: 20px 0;
   text-align: center;
-  a {
+
+  & a {
     color: inherit;
     text-decoration: none;
   }
 }
 
-// Month and Year Chooser.
+/* Month and Year Chooser. */
 
 .choose-month-and-year {
   margin: 0 0 1em;
 
-  #months {
+  & #months {
     padding-right: 2em;
     text-align: right;
   }
 
-  input {
+  & input {
     display: none;
   }
 
-  label {
+  & label {
     border-radius: 3px;
     color: $blue;
     cursor: pointer;
@@ -221,35 +220,35 @@ header {
     }
   }
 
-  input:checked + label {
+  & input:checked + label {
     background: $blue;
     color: white;
   }
 
-  input.current-month + label,
-  input.current-year + label {
-    @include triangle-bottom(3px, #aaaaaa, "up");
+  & input.current-month + label,
+  & input.current-year + label {
+    @mixin triangle-bottom 3px, #aaaaaa;
   }
 
-  input.current-month:checked + label,
-  input.current-year:checked + label {
-    @include triangle-bottom(3px, $blue, "up");
+  & input.current-month:checked + label,
+  & input.current-year:checked + label {
+    @mixin triangle-bottom 3px, $blue ;
   }
 }
 
-// Item List Textbox and Generated TaskPaper Month.
+/* Item List Textbox and Generated TaskPaper Month. */
 
 .items-field-and-generated-month {
-  h2 {
+  & h2 {
     font-weight: 600;
   }
 
-  p.directions {
+  & p.directions {
     color: #aaaaaa;
     font-size: 12px;
     margin: 1em 0;
 
-    kbd {
+    & kbd {
       background: #f1f1f1;
       border: 1px solid #cccccc;
       border-radius: 4px;
@@ -259,38 +258,38 @@ header {
       margin: 0 0.25em;
     }
   }
+}
 
-  #restore-default-items-button {
-    cursor: pointer;
-    text-decoration: underline;
+#restore-default-items-button {
+  cursor: pointer;
+  text-decoration: underline;
 
-    &:hover {
-      color: $blue;
-    }
+  &:hover {
+    color: $blue;
   }
+}
 
-  #empty-items-button {
-    font-size: 12px;
-    position: absolute;
-    top: $button-offset-top;
-    right: $button-offset-right;
-    z-index: 2;
-  }
+#empty-items-button {
+  font-size: 12px;
+  position: absolute;
+  top: $button-offset-top;
+  right: $button-offset-right;
+  z-index: 2;
+}
 
-  textarea {
-    border-radius: 3px;
-    outline: 0;
-    padding: 10px;
-    margin: 0;
-    resize: none;
-  }
+.items-field-and-generated-month textarea {
+  border-radius: 3px;
+  outline: 0;
+  padding: 10px;
+  margin: 0;
+  resize: none;
 }
 
 .input {
   padding: 1em;
 
-  // Textarea styles adapted from GitHub.
-  textarea {
+  /* Textarea styles adapted from GitHub. */
+  & textarea {
     background: white;
     border: 1px solid #cccccc;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
@@ -305,31 +304,7 @@ header {
 .output {
   padding: 1em;
 
-  #copy-button {
-    font-size: 12px;
-    padding: 2px 2px 2px 6px;
-    text-align: left;
-    position: absolute;
-    top: $button-offset-top;
-    right: $button-offset-right;
-    z-index: 2;
-
-    &.zeroclipboard-is-hover {
-      background: linear-gradient(180deg, #eeeeee, #dddddd);
-      border: 1px solid #888888;
-      color: #666666;
-      img {
-        opacity: 1;
-      }
-    }
-
-    &.zeroclipboard-is-active {
-      background: linear-gradient(180deg, #dddddd, #eeeeee);
-      color: #666666;
-    }
-  }
-
-  textarea {
+  & textarea {
     background: #f4f4f4;
     border: 1px solid #dddddd;
     font-family: Helvetica, sans-serif;
@@ -340,23 +315,47 @@ header {
   }
 }
 
-// Footer.
+#copy-button {
+  font-size: 12px;
+  padding: 2px 2px 2px 6px;
+  text-align: left;
+  position: absolute;
+  top: $button-offset-top;
+  right: $button-offset-right;
+  z-index: 2;
+
+  &.zeroclipboard-is-hover {
+    background: linear-gradient(180deg, #eeeeee, #dddddd);
+    border: 1px solid #888888;
+    color: #666666;
+    img {
+      opacity: 1;
+    }
+  }
+
+  &.zeroclipboard-is-active {
+    background: linear-gradient(180deg, #dddddd, #eeeeee);
+    color: #666666;
+  }
+}
+
+/* Footer. */
 
 footer {
   color: #aaaaaa;
   padding: 0 1em 1em;
   text-align: center;
 
-  p {
+  & p {
     font-size: 13px;
     line-height: 1.8;
   }
 
-  a {
+  & a {
     color: #999999;
   }
 
-  a:hover {
+  & a:hover {
     color: #333333;
   }
 }
