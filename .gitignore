@@ -1,12 +1,6 @@
-# Workflow
-.grunt
 .sass-cache
-bower_components
 node_modules
 .tmp
 tmp
 *.map
-build
-
-# OS-generated files
 .DS_Store

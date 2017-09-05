@@ -7,22 +7,22 @@ var URI = require('urijs');
 jQuery(document).ready(function($) {
 
   // So many variables!
-  var defaultItemList = '1:\n- to-do item\n\n14:\n- another task\n\tnotes\n\n25:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\nmon:\n- a weekly task\n\nWednesdays:\n- happens every Wednesday\n\nlast:\n- a task on the last day of the month',
-      items,
-      itemsField = $('#items'),
-      year,
-      month,
-      now = moment(),
-      thisYear = now.year(),
-      nextYear = thisYear + 1,
+  var defaultItemList = '1:\n- to-do item\n\n14:\n- another task\n\tnotes\n\n25:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\nmon:\n- a weekly task\n\nWednesdays:\n- happens every Wednesday\n\nlast:\n- a task on the last day of the month';
+  var items;
+  var itemsField = $('#items');
+  var year;
+  var month;
+  var now = moment();
+  var thisYear = now.year();
+  var nextYear = thisYear + 1;
 
-      emptyItemsButton          = $('#empty-items-button'),
-      doEmptyButton             = $('#do-empty'),
-      doNotEmptyButton          = $('#do-not-empty'),
+  var emptyItemsButton          = $('#empty-items-button');
+  var doEmptyButton             = $('#do-empty');
+  var doNotEmptyButton          = $('#do-not-empty');
 
-      restoreDefaultItemsButton = $('#restore-default-items-button'),
-      doRestoreButton           = $('#do-restore'),
-      doNotRestoreButton        = $('#do-not-restore');
+  var restoreDefaultItemsButton = $('#restore-default-items-button');
+  var doRestoreButton           = $('#do-restore');
+  var doNotRestoreButton        = $('#do-not-restore');
 
   // UI functions.
   function showEmptyItemsButton() { emptyItemsButton.fadeIn('fast');          }
