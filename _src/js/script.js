@@ -115,18 +115,20 @@ jQuery(document).ready(function($) {
       // If this day number or day name contains items, print them.
       if (items[day] || items[shortenedDayName] || (items['last'] && day === numberOfDays)) {
 
-        // If this is a day number or day name.
-        if (items[day]) {
-          var thisDay = items[day];
+        // Combine all day items lists so we don't overwrite something if, say,
+        // an event happens on Monday the 4th and an event happens every Monday.
+        var thisDay = [];
+
+        if (items['last'] && day === numberOfDays) {
+          var thisDay = thisDay.concat(items['last']);
         }
 
         if (items[shortenedDayName]) {
-          var thisDay = items[shortenedDayName];
+          var thisDay = thisDay.concat(items[shortenedDayName]);
         }
 
-        // If this is the last day of the month.
-        if (items['last'] && day === numberOfDays) {
-          var thisDay = items['last'];
+        if (items[day]) {
+          var thisDay = thisDay.concat(items[day]);
         }
 
         // Step through each item and parse it.
@@ -246,7 +248,7 @@ jQuery(document).ready(function($) {
   // Watch the input fields for changes, and re-generate the month.
   $('input[name="month"]').on('change', generateTaskPaperMonth);
   $('input[name="year"]').on('change', generateTaskPaperMonth);
-  itemsField.on('keyup', _.debounce(generateTaskPaperMonth, 250));
+  itemsField.on('keyup', _.debounce(generateTaskPaperMonth, 200));
 
   // Make the Tab key insert an actual tab in the textarea.
   itemsField.keydown(function(key) {
@@ -278,18 +280,21 @@ jQuery(document).ready(function($) {
       showRestoreDefaultsDialog();
       hideEmptyItemsDialog();
       focusOnItemsField();
+      generateTaskPaperMonth();
     }
     // Otherwise, hide the 'Empty' button, restore defaults, and focus on the field.
     else {
       showEmptyItemsButton();
       restoreDefaultsToItemsField();
       focusOnItemsField();
+      generateTaskPaperMonth();
     }
   });
 
   doNotRestoreButton.on('click', function() {
     hideRestoreDefaultsDialog();
     focusOnItemsField();
+    generateTaskPaperMonth();
   });
 
   doRestoreButton.on('click', function() {
@@ -297,6 +302,7 @@ jQuery(document).ready(function($) {
     showEmptyItemsButton();
     restoreDefaultsToItemsField();
     focusOnItemsField();
+    generateTaskPaperMonth();
   });
 
   // Empty the items field.
@@ -304,11 +310,13 @@ jQuery(document).ready(function($) {
     hideRestoreDefaultsDialog();
     showEmptyItemsDialog();
     focusOnItemsField();
+    generateTaskPaperMonth();
   });
 
   doNotEmptyButton.on('click', function() {
     hideEmptyItemsDialog();
     focusOnItemsField();
+    generateTaskPaperMonth();
   });
 
   doEmptyButton.on('click', function() {
@@ -316,6 +324,7 @@ jQuery(document).ready(function($) {
     hideEmptyItemsButton();
     itemsField.val('');
     focusOnItemsField();
+    generateTaskPaperMonth();
   });
 
   // Periodically check if the items field is empty. If it is, hide the 'Empty' button.
