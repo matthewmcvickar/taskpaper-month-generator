@@ -13,13 +13,11 @@ For use with [Taskpaper Tiles](https://github.com/matthewmcvickar/taskpapertiles
 
 Go to the **[TaskPaper Month Generator](http://matthewmcvickar.github.io/taskpaper-month-generator)**.
 
-**To add tasks to a day**, enter the day number, start a new line, and list each new task on a new line, like you would in TaskPaper. Start a new line and press `Tab` to start an indented note.
+**To add tasks to a day**, enter the day number, start a new line, and list each new task on a new line and prefix it with a dash, like you would in TaskPaper. Start a new line without a dash to create a note. Use <kbd>Tab</kbd> to indent lines.
 
 **Events that repeat on a given day each week** can be listed under their day name, and the formatting is flexible: `Monday` and `Mondays` and `monday` and `mon` all work just fine.
 
 **Events that happen on the last day of the month** can be listed under the heading `last` or `Last` or `Last Day` or `final` or `Final`.
-
-The expected syntax is relatively forgiving. You can omit the colons after day names and you can omit the dashes before tasks, and it will still work.
 
 ### Example
 
@@ -33,17 +31,17 @@ This syntax is inconsistent to demonstrate its flexibility:
 - another task
   notes
 
-29
-task
-yet another task
+29:
+- task
+- yet another task
   notes and details
   another note
 
 Monday:
 - a weekly task
 
-wed
-a task that happens every wednesday
+wed:
+- a task that happens every wednesday
 
 last:
 - a task that happens on the last day of the month
