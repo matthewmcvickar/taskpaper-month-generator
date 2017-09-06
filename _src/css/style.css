@@ -6,8 +6,8 @@
 /* Variables. */
 
 $blue: #0099ff;
-$button-offset-top: 80px;
-$button-offset-right: 28px;
+$button-offset-top: 35px;
+$button-offset-right: 16px;
 
 
 /* Base. */
@@ -24,15 +24,26 @@ $button-offset-right: 28px;
 
 html,
 body {
-  color: #333333;
+  color: #222;
   line-height: 1;
   margin: 0;
   padding: 0;
 }
 
+body,
+input,
+textarea,
+button {
+  color: #222;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
 h1 {
   margin: 0;
-  font-size: 48px;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 h2 {
@@ -52,15 +63,15 @@ p {
   border: 1px solid darkred;
   border-radius: 3px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
-  color: #333333;
+  color: #222;
   display: none;
   padding: 0.75em;
   text-align: center;
   position: absolute;
-  top: $button-offset-top;
-  right: $button-offset-right;
+  top: 80px;
+  right: 28px;
   z-index: 99;
-  width: 200px;
+  width: 250px;
 
   & p {
     font-size: 14px;
@@ -71,11 +82,10 @@ p {
 
 button {
   background-image: linear-gradient(180deg, #fafafa, #eeeeee);
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 3px;
-  color: #aaaaaa;
+  color: #888;
   cursor: pointer;
-  font-family: "Helvetica Neue", sans-serif;
   font-size: 12px;
   margin: 0;
   padding: 2px 2px 2px 6px;
@@ -166,25 +176,11 @@ body,
   }
 }
 
-
-/* Design. */
-
-body,
-input,
-textarea {
-  font-family: "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-}
-
-
 /* Header. */
 
 header {
-  font-size: 48px;
-  font-weight: 600;
   letter-spacing: -1px;
-  margin: 20px 0;
+  margin: 0.75em 0 1em 0;
   text-align: center;
 
   & a {
@@ -196,7 +192,10 @@ header {
 /* Month and Year Chooser. */
 
 .choose-month-and-year {
-  margin: 0 0 1em;
+  background: #f1f1f1;
+  padding: 0 0;
+  border-radius: 3px;
+  margin: 0.25em 1em;
 
   & #months {
     padding-right: 2em;
@@ -208,7 +207,7 @@ header {
   }
 
   & label {
-    border-radius: 3px;
+    /* border-radius: 3px; */
     color: $blue;
     cursor: pointer;
     display: inline-block;
@@ -251,9 +250,9 @@ header {
     & kbd {
       font: 11px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
       display: inline-block;
-      padding: 3px 5px;
+      padding: 2px 3px 1px 3px;
       font-size: 11px;
-      line-height: 10px;
+      line-height: 1;
       color: #444d56;
       vertical-align: middle;
       background-color: #fafbfc;
@@ -261,11 +260,14 @@ header {
       border-bottom-color: #959da5;
       border-radius: 3px;
       box-shadow: inset 0 -1px 0 #959da5;
+      transform: translateY(-5px);
+      margin-bottom: -8px;
     }
   }
 }
 
-#restore-default-items-button {
+#restore-default-items-button,
+#restore-user-text-button {
   cursor: pointer;
   text-decoration: underline;
 
@@ -295,6 +297,8 @@ header {
 
   /* Textarea styles adapted from GitHub. */
   & textarea {
+    font-size: 14px;
+
     background: white;
     border: 1px solid #cccccc;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
@@ -310,10 +314,11 @@ header {
   padding: 1em;
 
   & textarea {
+    font-size: 14px;
+
     background: #f4f4f4;
     border: 1px solid #dddddd;
     font-family: Helvetica, sans-serif;
-    font-size: 14px;
     line-height: 1.3;
     margin: 0;
     resize: none;
@@ -352,7 +357,7 @@ footer {
   text-align: center;
 
   & p {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.8;
   }
 
@@ -361,6 +366,6 @@ footer {
   }
 
   & a:hover {
-    color: #333333;
+    color: #222;
   }
 }

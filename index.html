@@ -68,19 +68,19 @@ https://github.com/matthewmcvickar/taskpapertiles
     <div class="input">
 
       <h2>Monthly Tasks</h2>
-      <p class="directions">Follow <span id="restore-default-items-button">the example</span>. <kbd>Tab</kbd> works. Auto-saved.</p>
+      <p class="directions">
+        <span id="restore-default-items-button">Load example.</span>
+        <span id="restore-user-text-button" style="display: none;">Restore your text.</span>
+         &bull;
+        <kbd>Tab</kbd> works.
+         &bull;
+        Auto-saved to browser.
+      </p>
 
       <div id="restore-default-items-dialog" class="dialog">
-        <p>Reloading defaults will erase whatever you&rsquo;ve added here.</p>
+        <p>Loading the example text will erase whatever you&rsquo;ve added here. <strong>You can restore your text afterward.</strong></p>
         <button id="do-not-restore" class="no"  title="Cancel">Cancel</button>
         <button id="do-restore"     class="yes" title="OK">OK</button>
-      </div>
-
-      <button id="empty-items-button" title="Empty">Empty<img src="img/trash.svg"></button>
-      <div id="empty-items-dialog" class="dialog">
-        <p>Erase everything?</p>
-        <button id="do-not-empty" class="no"  title="Cancel">Cancel</button>
-        <button id="do-empty"     class="yes" title="OK">OK</button>
       </div>
 
       <textarea tabindex="1" id="items"></textarea>
@@ -88,7 +88,7 @@ https://github.com/matthewmcvickar/taskpapertiles
 
     <div class="output">
       <h2>Your TaskPaper Month</h2>
-      <p class="directions">Updated live. Copy and paste into TaskPaper.</p>
+      <p class="directions">Updated live. &bull; Copy and paste into TaskPaper.</p>
 
       <button id="copy-button" data-clipboard-target="#taskpaper-month"><span>Copy</span><img src="img/clipboard.svg" alt="Copy to clipboard"></button>
 
@@ -98,8 +98,7 @@ https://github.com/matthewmcvickar/taskpapertiles
 
   <footer>
     <p>
-      Use simple syntax to generate a TaskPaper-formatted month of tasks. By <a href="http://matthewmcvickar.com">Matthew McVickar</a>. <a href="https://github.com/matthewmcvickar/taskpaper-month-generator">Source on GitHub.</a><br>
-      For use with <a href="https://github.com/matthewmcvickar/taskpapertiles">TaskPaper Tiles</a>, a <a href="http://www.hogbaysoftware.com/products/taskpaper">TaskPaper</a>-based productivity framework.
+      Use simple syntax to generate a <a href="http://www.hogbaysoftware.com/products/taskpaper">TaskPaper</a>-formatted month of tasks. By <a href="http://matthewmcvickar.com">Matthew McVickar</a>. <a href="https://github.com/matthewmcvickar/taskpaper-month-generator">Source on GitHub.</a> See also: <a href="https://github.com/matthewmcvickar/taskpapertiles">TaskPaper Tiles</a>
     </p>
   </footer>
 

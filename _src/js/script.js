@@ -7,7 +7,8 @@ var URI = require('urijs');
 jQuery(document).ready(function($) {
 
   // So many variables!
-  var defaultItemList = '1:\n- to-do item\n\n14:\n- another task\n\tnotes\n\n25:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\nmon:\n- a weekly task\n\nWednesdays:\n- happens every Wednesday\n\nlast:\n- a task on the last day of the month';
+  var defaultItemList = "☞ Use day numbers for items that occur on a particular day. Just like in TaskPaper, items start with a dash and notes are indented without a dash.\n\n1:\n- to-do item\n\t- a sub-item\n\t\ta note\n- another item\n\n14:\n- task\n- yet another task\n\tnotes and details\n\tanother note\n\n☞ Use a day name (‘mon’, ‘monday’, ‘Mondays’ all work) for items that repeat on a certain day of the week.\n\nmon:\n- a weekly task\n\tnotes for a weekly task\n\nWednesdays:\n- happens every Wednesday\n\n☞ Use ‘last’ or ‘last day’ or ‘final’ for items that happen on the last day of the month.\n\nlast:\n- a task on the last day of the month";
+
   var items;
   var itemsField = $('#items');
   var year;
@@ -16,20 +17,14 @@ jQuery(document).ready(function($) {
   var thisYear = now.year();
   var nextYear = thisYear + 1;
 
-  var emptyItemsButton          = $('#empty-items-button');
-  var doEmptyButton             = $('#do-empty');
-  var doNotEmptyButton          = $('#do-not-empty');
-
   var restoreDefaultItemsButton = $('#restore-default-items-button');
   var doRestoreButton           = $('#do-restore');
   var doNotRestoreButton        = $('#do-not-restore');
+  var restoreUserTextButton     = $('#restore-user-text-button');
 
   // UI functions.
-  function showEmptyItemsButton() { emptyItemsButton.fadeIn('fast');          }
-  function hideEmptyItemsButton() { emptyItemsButton.fadeOut('fast');         }
   function showEmptyItemsDialog() { $('#empty-items-dialog').fadeIn('fast');  }
   function hideEmptyItemsDialog() { $('#empty-items-dialog').fadeOut('fast'); }
-
   function showRestoreDefaultsDialog() { $('#restore-default-items-dialog').fadeIn('fast');  }
   function hideRestoreDefaultsDialog() { $('#restore-default-items-dialog').fadeOut('fast'); }
 
@@ -141,21 +136,26 @@ jQuery(document).ready(function($) {
 
           var line = thisDay[i];
 
-          // If the line starts with two spaces or a tab character, make it a
-          // note.
-          if (line.substring(0, 2) === '  ' || line.substring(0, 1) === '\t') {
-            generatedMonth += '\n\t' + line;
+          // If the line is empty, ignore it.
+          if (line.length === 0) {
+            continue;
           }
 
-          // If the line starts with a dash and a space, make it a todo. (This
-          // is not the suggested syntax, but I'll parse it!)
-          else if (line.substring(0, 2) === '- ') {
+          // If the line starts with an arrow, that's an instruction and should
+          // be ignored.
+          if (line.substr(0, 1) === '☞') {
+            continue;
+          }
+
+          // If the line starts with two spaces, a letter, or tab character,
+          // make it a note.
+          if (line.substring(0, 2) === '  ' || line.substring(0, 1) === '\t' || line.substring(0, 1) !== '-') {
             generatedMonth += '\n\t' + line;
           }
 
           // Otherwise, make it a todo.
           else {
-            generatedMonth += '\n\t- ' + line;
+            generatedMonth += '\n\t' + line;
           }
         }
 
@@ -289,7 +289,6 @@ jQuery(document).ready(function($) {
     }
     // Otherwise, hide the 'Empty' button, restore defaults, and focus on the field.
     else {
-      showEmptyItemsButton();
       restoreDefaultsToItemsField();
       focusOnItemsField();
       generateTaskPaperMonth();
@@ -303,42 +302,31 @@ jQuery(document).ready(function($) {
   });
 
   doRestoreButton.on('click', function() {
-    hideRestoreDefaultsDialog();
-    showEmptyItemsButton();
-    restoreDefaultsToItemsField();
-    focusOnItemsField();
-    generateTaskPaperMonth();
+    // Save user text to a separate localStorage variable before restoring
+    // defaults so that it can be restored.
+    localStorage.setItem('TaskPaperMonthGenerator_backup', itemsField.val());
+
+    // Give that backup function a fraction of a second to run first.
+    setTimeout(
+      function() {
+        restoreDefaultItemsButton.hide();
+        restoreUserTextButton.show();
+        hideRestoreDefaultsDialog();
+        restoreDefaultsToItemsField();
+        focusOnItemsField();
+        generateTaskPaperMonth();
+      },
+      100
+    )
   });
 
-  // Empty the items field.
-  emptyItemsButton.on('click', function() {
-    hideRestoreDefaultsDialog();
-    showEmptyItemsDialog();
-    focusOnItemsField();
-    generateTaskPaperMonth();
-  });
+  // Restore user's text from before loading defaults.
+  restoreUserTextButton.click(function() {
+    restoreUserTextButton.hide()
+    restoreDefaultItemsButton.show();
 
-  doNotEmptyButton.on('click', function() {
-    hideEmptyItemsDialog();
-    focusOnItemsField();
-    generateTaskPaperMonth();
-  });
-
-  doEmptyButton.on('click', function() {
-    hideEmptyItemsDialog();
-    hideEmptyItemsButton();
-    itemsField.val('');
-    focusOnItemsField();
-    generateTaskPaperMonth();
-  });
-
-  // Periodically check if the items field is empty. If it is, hide the 'Empty' button.
-  itemsField.on('keyup', function() {
-    if (itemsField.val().trim() !== '') {
-      showEmptyItemsButton();
-    } else {
-      hideEmptyItemsButton();
-    }
+    // Restore user's backup from local storage.
+    itemsField.val(localStorage.getItem('TaskPaperMonthGenerator_backup'));
   });
 
   // Copy-to-clipboard button.
