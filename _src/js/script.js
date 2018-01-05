@@ -181,6 +181,15 @@ jQuery(document).ready(function($) {
     // Print generated TaskPaper month to the screen.
     $('#taskpaper-month').val(generatedMonth);
 
+    // If values are invalid, reset them.
+    if (typeof(year) === 'undefined') {
+      year = now.year();
+    }
+
+    if (typeof(month) === 'undefined') {
+      month = now.month() + 1;
+    }
+
     // Remove parameters from the URL, since we've changed the year and month on pageload.
     history.pushState({}, '', location.href.substring(0, location.href.indexOf('?')) + '?year=' + year + '&month=' + month);
 
@@ -199,19 +208,34 @@ jQuery(document).ready(function($) {
     items = localStorage.getItem('TaskPaperMonthGenerator_items');
     year  = localStorage.getItem('TaskPaperMonthGenerator_year');
     month = localStorage.getItem('TaskPaperMonthGenerator_month');
+
+    // If the localStorage values are invalid, reset them.
+    if (typeof(year) !== 'number') {
+      year = now.year();
+    }
+    if (typeof(month) !== 'number') {
+      month = now.month() + 1;
+    }
   } else {
     items = defaultItemList;
     year  = now.year();
     month = now.month() + 1;
   }
 
-  // Replace saved values with URL parameters, if they exist.
+  // Replace saved values with URL parameters, if they exist. If they are
+  // invalid for some reason, reset them.
   if (URI().hasQuery('year') && URI().search(true).year !== 'undefined') {
-    year  = URI().search(true).year;
+    year = URI().search(true).year;
+  }
+  else {
+    year = now.year();
   }
 
-  if (URI().hasQuery('month') && typeof URI().search(true).month !== 'undefined') {
+  if (URI().hasQuery('month') && URI().search(true).month !== 'undefined') {
     month = URI().search(true).month;
+  }
+  else {
+    month = now.month() + 1;
   }
 
   // Initial setup.
