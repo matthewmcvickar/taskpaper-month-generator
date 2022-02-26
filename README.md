@@ -40,8 +40,8 @@ This syntax is inconsistent to demonstrate its flexibility:
 Monday:
 - a weekly task
 
-wed:
-- a task that happens every wednesday
+fri:
+- a task that happens every Friday
 
 last:
 - a task that happens on the last day of the month
